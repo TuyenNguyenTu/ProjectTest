@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProjectTest.Models;
 
 namespace ProjectTest
 {
@@ -30,8 +34,21 @@ namespace ProjectTest
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            //add các dịch vụ liên quan
+            services.AddAuthentication(options=>{
+                options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddFacebook(options =>
+                {
+                    options.AppId = "733537693819413";
+                    options.AppSecret = "581d6905f0046b5458c35a281d4d5af2";
+                }).AddCookie();
 
-
+            services.AddDbContext<MyBlogDbContext>(options=> {
+                options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
