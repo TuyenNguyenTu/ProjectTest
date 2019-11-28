@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
-    [Area("admin")]
-    public class TestController : Controller
+    [Area("Admin")]
+    public class LoginController : Controller
     {
         public IActionResult Index()
         {
