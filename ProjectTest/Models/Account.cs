@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -46,15 +47,16 @@ namespace ProjectTest.Models
         public string CreatedBy { set; get; }
 
         [Display(Name = "Ngày lập")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         [Display(Name = "Ngày sửa cuối")]
-        public DateTime ModifiedDate { set; get; }
+        public DateTime? ModifiedDate { set; get; }
 
         [Display(Name = "Admin")]
         public bool IsAdmin { set; get; }
 
         [Display(Name = "Trạng thái")]
+        [DefaultValue("true")]
         public bool Status { set; get; }
     }
 }

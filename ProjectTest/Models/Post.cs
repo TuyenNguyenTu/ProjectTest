@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace ProjectTest.Models
         public string CreatedBy { set; get; }
 
         [Display(Name = "Ngày chỉnh sửa gần nhất")]
-        public DateTime ModifiedDate { set; get; }
+        public DateTime? ModifiedDate { set; get; }
 
         [Display(Name = "Người chỉnh sửa")]
         [Required(ErrorMessage = "Bạn không được bỏ trống mục này")]
@@ -56,10 +57,11 @@ namespace ProjectTest.Models
         public long ViewCount { set; get; }
 
         [Display(Name = "Trạng thái")]
-        public bool Status { set; get; }
+        [DefaultValue("true")]
+        public bool? Status { set; get; }
         [Display(Name ="Loại bài viết")]
         public long CategoryId { set; get; }
-
+        [ForeignKey("CategoryId")]
         public CategoryPost CategoryPost { set; get; }
     }
 }

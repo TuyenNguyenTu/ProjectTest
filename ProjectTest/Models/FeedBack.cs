@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -42,7 +43,8 @@ namespace ProjectTest.Models
         public DateTime CreatedDate { set; get; }
 
         [Display(Name = "Trạng thái")]
-        public bool Status { set; get; }
+        [DefaultValue("true")]
+        public bool? Status { set; get; }
         
     }
 }

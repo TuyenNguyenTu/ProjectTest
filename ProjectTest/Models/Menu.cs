@@ -19,18 +19,17 @@ namespace ProjectTest.Models
 
         [Display(Name = "Thứ tự hiển thị")]
         [Required(ErrorMessage = "Bạn phải nhập trường này")]
-        [Column(TypeName = "int")]
         public string DisplayOrder { set; get; }
 
 
         [Display(Name = "Trạng thái")]
         [Required(ErrorMessage = "Bạn phải nhập trường này")]
-        public bool Status { set; get; }
+        public bool? Status { set; get; }
 
         [Display(Name = "Loại Menu")]
         [Required(ErrorMessage = "Không để trống trường này")]
         public long TypeID { set; get; }
-
+        [ForeignKey("TypeID")]
         public TypeMenu TypeMenu { set; get; }
 
     }

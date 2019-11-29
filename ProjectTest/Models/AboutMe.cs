@@ -47,14 +47,15 @@ namespace ProjectTest.Models
         public string CreatedBy { set; get; }
 
         [Display(Name = "Ngày sửa gần nhất")]
-        public DateTime ModifiedDate { set; get; }
+        public DateTime? ModifiedDate { set; get; }
 
         [Display(Name = "Trạng thái")]
         [Required]
-        public bool Status { set; get; }
+        public bool? Status { set; get; }
 
         [Display(Name = "Ghi chú")]
         [Column(TypeName = "ntext")]
         public string Note { set; get; }
+
     }
 }

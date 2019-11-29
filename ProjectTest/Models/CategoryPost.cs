@@ -11,7 +11,6 @@ namespace ProjectTest.Models
     {
         [Key]
         [Display(Name ="Mã Loại")]
-        [Column(TypeName ="varchar(20)")]
         public long Id { set; get; }
         [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [Display(Name ="Tên loại")]
@@ -22,10 +21,10 @@ namespace ProjectTest.Models
         public string MetaTitle { set; get; }
         public string MetaKeyword { set; get; }
         public string MetaDescription { set; get; }
-        public DateTime CreatedDate { set; get; }
-        public DateTime ModifiedDate { set; get; }
+        public DateTime? CreatedDate { set; get; }
+        public DateTime? ModifiedDate { set; get; }
         [Display(Name ="Trạng thái")]
-        public bool Status { set; get; }
+        public bool? Status { set; get; }
 
         public ICollection<Post> Posts { set; get; }
     }
