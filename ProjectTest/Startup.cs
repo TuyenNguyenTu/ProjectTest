@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectTest.Models;
 using Microsoft.AspNetCore.Session;
+using ProjectTest.Repository.InterfaceRepository;
+using ProjectTest.Repository.Reposi;
 
 namespace ProjectTest
 {
@@ -52,11 +54,19 @@ namespace ProjectTest
             services.AddDbContext<MyBlogDbContext>(options=> {
                 options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
             });
+
+            //add scope: kết dính với nhau, đại loại thế
+            services.AddScoped<ICategoryPostRepository, CategoryPostRepository>();
+            
+            
+            
             // add dich vu MVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //add dịch vụ session
             services.AddSession();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

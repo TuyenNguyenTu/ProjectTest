@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ProjectTest.Models.CategoryPost>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+    <p>@item.CategoryName</p>
+}
+
