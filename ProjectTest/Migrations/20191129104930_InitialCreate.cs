@@ -40,15 +40,15 @@ namespace ProjectTest.Migrations
                     UserName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     PassWord = table.Column<string>(type: "varchar(50)", nullable: false),
                     Avartar = table.Column<string>(type: "nvarchar(500)", nullable: true),
-                    DisplayName = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(defaultValueSql: "GETDATE()", nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    IsAdmin = table.Column<bool>(nullable: false),
-                    Status = table.Column<bool>(defaultValueSql: "1", nullable: false)
+                    IsAdmin = table.Column<bool>(nullable: true),
+                    Status = table.Column<bool>(defaultValueSql: "1", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -80,7 +80,7 @@ namespace ProjectTest.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Contents = table.Column<string>(type: "ntext", nullable: false),
+                    Contents = table.Column<string>(type: "ntext", nullable: true),
                     Status = table.Column<bool>(defaultValueSql: "1", nullable: true)
                 },
                 constraints: table =>
@@ -94,12 +94,12 @@ namespace ProjectTest.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Phone = table.Column<string>(type: "varchar(12)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Contents = table.Column<string>(type: "nvarchar(500)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(defaultValueSql: "GETDATE()", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Contents = table.Column<string>(type: "nvarchar(500)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(defaultValueSql: "GETDATE()", nullable: true),
                     Status = table.Column<bool>(defaultValueSql: "1", nullable: true)
                 },
                 constraints: table =>
@@ -113,7 +113,7 @@ namespace ProjectTest.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Contents = table.Column<string>(type: "ntext", nullable: false),
+                    Contents = table.Column<string>(type: "ntext", nullable: true),
                     CreatedDate = table.Column<DateTime>(defaultValueSql: "GETDATE()", nullable: true),
                     Status = table.Column<bool>(defaultValueSql: "1", nullable: true)
                 },
@@ -128,12 +128,12 @@ namespace ProjectTest.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Image = table.Column<string>(type: "nvarchar(250)", nullable: false),
-                    DisplayOrder = table.Column<int>(nullable: false),
-                    Link = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(250)", nullable: true),
+                    DisplayOrder = table.Column<int>(nullable: true),
+                    Link = table.Column<string>(type: "nvarchar(250)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(250)", nullable: true),
                     CreatedDate = table.Column<DateTime>(defaultValueSql: "GETDATE()", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Status = table.Column<bool>(defaultValueSql: "1", nullable: true)
                 },
@@ -163,14 +163,14 @@ namespace ProjectTest.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(type: "nvarchar(500)", nullable: false),
                     ContentPost = table.Column<string>(type: "ntext", nullable: false),
-                    MetaTitle = table.Column<string>(type: "nchar(500)", nullable: false),
+                    MetaTitle = table.Column<string>(type: "nchar(500)", nullable: true),
                     CreatedDate = table.Column<DateTime>(defaultValueSql: "GETDATE()", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(250)", nullable: true),
                     MetaKeyword = table.Column<string>(type: "nvarchar(250)", nullable: true),
-                    MetaDescription = table.Column<string>(type: "nvarchar(500)", nullable: false),
-                    ViewCount = table.Column<long>(nullable: false),
+                    MetaDescription = table.Column<string>(type: "nvarchar(500)", nullable: true),
+                    ViewCount = table.Column<long>(nullable: true),
                     Status = table.Column<bool>(defaultValueSql: "1", nullable: true),
                     CategoryId = table.Column<long>(nullable: false)
                 },

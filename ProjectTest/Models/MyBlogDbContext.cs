@@ -8,6 +8,7 @@ namespace ProjectTest.Models
 {
     public class MyBlogDbContext : DbContext
     {
+
         public MyBlogDbContext(DbContextOptions<MyBlogDbContext> options) : base(options)
         {
 

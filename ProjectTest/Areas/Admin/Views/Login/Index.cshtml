@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model ProjectTest.Areas.Admin.Models.LoginModel
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/png" href="images/DB_16х16.png">
@@ -51,26 +52,36 @@
                             <span class="login-name text-color--white">Sign in</span>
                             <span class="login-secondary-text text-color--smoke">Enter fields to sign in to DARKBOARD</span>
                         </div>
-                        <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-                                <input class="mdl-textfield__input" type="text" id="e-mail">
-                                <label class="mdl-textfield__label" for="e-mail">Email</label>
-                            </div>
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-                                <input class="mdl-textfield__input" type="text" id="password">
-                                <label class="mdl-textfield__label" for="password">Password</label>
-                            </div>
-                            <a href="forgot-password.html" class="login-link">Forgot password?</a>
-                        </div>
-                        <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone submit-cell">
-                            <a href="sign-up.html" class="login-link">Don't have account?</a>
-                            <div class="mdl-layout-spacer"></div>
-                            <a href="index.html">
-                                <buttons class="mdl-button mdl-js-button mdl-button--raised color--light-blue">
-                                    SIGN IN
-                                </buttons>
-                            </a>
-                        </div>
+                        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                        {
+                            <fieldset>
+                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @autofocus = "autofocus" })
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", @autofocus = "autofocus" })
+                                    </div>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(model => model.RememberMe) Remember Me
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                                @*<div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone submit-cell">
+                                    <a href="sign-up.html" class="login-link">don't have account?</a>
+                                    <div class="mdl-layout-spacer"></div>
+                                    <a href="index.html">
+                                        <buttons class="mdl-button mdl-js-button mdl-button--raised color--light-blue">
+                                            sign in
+                                        </buttons>
+                                    </a>
+                                </div>*@
+                            </fieldset>
+                        }
+
+
                     </div>
                 </div>
             </div>
@@ -97,3 +108,37 @@
 
 </body>
 </html>
+
+@*<body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login panel panel-default">
+                        <div class="panel-heading">
+                            <h3>Please Sign In</h3>
+                        </div>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                            {
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Tài khoản" name="userName" type="text" autofocus />
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Mật khẩu" name="password" type="password" value="" />
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="remember" type="checkbox" value="Remember Me" />Remember Me
+                                        </label>
+                                    </div>
+                                    <a></a>
+                                </fieldset>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>*@

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectTest.Models;
+using Microsoft.AspNetCore.Session;
 
 namespace ProjectTest
 {
@@ -34,6 +35,7 @@ namespace ProjectTest
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
             //add các dịch vụ liên quan
             services.AddAuthentication(options=>{
                 options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
@@ -46,10 +48,15 @@ namespace ProjectTest
                     options.AppSecret = "581d6905f0046b5458c35a281d4d5af2";
                 }).AddCookie();
 
+            //add dbcontext co connection string 
             services.AddDbContext<MyBlogDbContext>(options=> {
                 options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
             });
+            // add dich vu MVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //add dịch vụ session
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,12 +75,12 @@ namespace ProjectTest
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                 name: "areas",
-                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                template: "{area:exists}/{controller=Login}/{action=Index}/{id?}"
               );
                 routes.MapRoute(
                     name: "default",

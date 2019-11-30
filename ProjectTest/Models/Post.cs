@@ -54,7 +54,7 @@ namespace ProjectTest.Models
         public string MetaDescription { set; get; }
 
         [Display(Name = "Lượt xem")]
-        public long ViewCount { set; get; }
+        public long ViewCount { set; get; } = 0;
 
         [Display(Name = "Trạng thái")]
         [DefaultValue("true")]
