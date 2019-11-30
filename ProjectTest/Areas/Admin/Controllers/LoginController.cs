@@ -36,8 +36,12 @@ namespace ProjectTest.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = context.Accounts.SingleOrDefault(x => x.UserName == model.UserName && x.PassWord == model.Password);
-                if (result != null)
+                var result = context.Accounts.SingleOrDefault(x => x.UserName == model.UserName);
+                if (result == null)
+                {
+                    ModelState.AddModelError("", "Không tồn tại tài khoản ");
+                }
+                else if (result.PassWord == model.Password)
                 {
                     if (result.Status == true)
                     {
@@ -57,29 +61,33 @@ namespace ProjectTest.Areas.Admin.Controllers
                             {
                                 ModelState.AddModelError("", "Sai mật khẩu");
                             }
-                            
+
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Tài khoản không được cấp phép");
                         }
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Tài khoản không được cấp phép hoặc đang bị khóa");
+                        ModelState.AddModelError("", "Tài khoản đang bị khóa");
                     }
-                   
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Không tồn tại tài khoản ");
+                    ModelState.AddModelError("", "Mật khẩu sai");
                 }
+              
                 //else if (result == -1)
                 //{
-                    
+
                 //}
                 //else
                 //{
                 //    ModelState.AddModelError("", "Sai mật khẩu");
                 //}
             }
-            return View("Index");  
+            return View("Index");
         }
     }
 }

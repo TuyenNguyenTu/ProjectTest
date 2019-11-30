@@ -15,7 +15,7 @@ namespace ProjectTest.DAO
         }
         public long Insert(Account account)
         {
-            db.Add(account);
+            db.Accounts.Add(account);
             db.SaveChanges();
             return account.Id;
         }
