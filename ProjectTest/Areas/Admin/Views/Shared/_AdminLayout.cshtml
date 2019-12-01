@@ -22,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Material Dashboard Lite</title>
+    <title>Trang quản trị</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -51,7 +51,7 @@
     <link href="~/css/lib/nv.d3.min.css" rel="stylesheet" />
     <link href="~/css/application.min.css" rel="stylesheet" />
     <!-- endinject -->
-
+    <script src="https://kit.fontawesome.com/9edaadcf0e.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">
@@ -308,15 +308,16 @@
                                 <i class="material-icons">developer_board</i>
                                 Components
                             </a>
-                            
+
+                            <a asp-area="Admin" asp-controller="Account" asp-action="Index" class="mdl-navigation__link">
+                                <i class="material-icons" role="presentation">map</i>
+                                Account
+                            </a>
                             <a asp-area="Admin" asp-controller="CategoryPost" asp-action="Index" class="mdl-navigation__link">
                                 <i class="material-icons" role="presentation">person</i>
                                 Category
                             </a>
-                            <a class="mdl-navigation__link" href="maps.html">
-                                <i class="material-icons" role="presentation">map</i>
-                                Maps
-                            </a>
+
                             <a class="mdl-navigation__link" href="charts.html">
                                 <i class="material-icons">multiline_chart</i>
                                 Charts
@@ -357,7 +358,7 @@
 
         <main class="mdl-layout__content">
 
-            @RenderBody();
+            @RenderBody()
 
         </main>
 
