@@ -11,28 +11,44 @@
     <a asp-action="Create"><i class="fas fa-plus-square"></i> Create New</a>
 </p>
 <div class="col-md-12" style="text-align:center">
+
+    @using (Html.BeginForm("Index", "Account", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-md-4">
+                    <span>Tìm kiếm: </span>
+                    <input type="text" name="searchString" />
+                    <button type="submit" value="Tìm kiếm">Tìm kiếm</button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+     }
+    <br />
     <table class="mdl-data-table mdl-js-data-table">
         <thead>
             <tr>
                 <th style="text-align:center">
                     Tài khoản
                 </th>
-                <th style="text-align:center">                   
+                <th style="text-align:center">
                     Tên hiển thị
                 </th>
-                <th style="text-align:center">                   
+                <th style="text-align:center">
                     Địa chỉ
                 </th>
-                <th style="text-align:center">                  
+                <th style="text-align:center">
                     Email
                 </th>
-                <th style="text-align:center">                   
+                <th style="text-align:center">
                     Số điện thoại
                 </th>
-                <th style="text-align:center">                
+                <th style="text-align:center">
                     Ngày lập tài khoản
                 </th>
-                <th style="text-align:center">                  
+                <th style="text-align:center">
                     Ngày chỉnh sửa cuối
                 </th>
                 <th>
@@ -71,12 +87,12 @@
                         @Html.DisplayFor(modelItem => item.ModifiedDate)
                     </td>
                     <td style="text-align:center">
-                       @* @Html.DisplayFor(modelItem => item.IsAdmin)*@
-                        @(item.IsAdmin==true?"Active":"Block")
+                        @* @Html.DisplayFor(modelItem => item.IsAdmin)*@
+                        @(item.IsAdmin == true ? "Active" : "Block")
                     </td>
                     <td style="text-align:center">
-                     @* @Html.DisplayFor(modelItem => item.Status)*@
-                        @(item.Status==true?"Active":"Block")
+                        @* @Html.DisplayFor(modelItem => item.Status)*@
+                        @(item.Status == true ? "Active" : "Block")
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id" class="label label--mini background-color--primary"><i class="fas fa-edit"></i> Edit</a> |

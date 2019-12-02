@@ -21,9 +21,17 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/Account
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Accounts.ToListAsync());
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                return View(await _context.Accounts.Where(x => x.DisplayName == searchString).ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Accounts.ToListAsync());
+            }
+
         }
 
         // GET: Admin/Account/Details/5
@@ -88,7 +96,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,UserName,PassWord,Avartar,DisplayName,Address,Email,Phone,CreatedBy,CreatedDate,IsAdmin,Status")] Account account)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,UserName,PassWord,Avartar,DisplayName,Address,Email,Phone,CreatedBy,IsAdmin,Status")] Account account)
         {
             if (id != account.Id)
             {
