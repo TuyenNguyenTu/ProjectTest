@@ -12,6 +12,7 @@ namespace ProjectTest.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.getSession = HttpContext.Session.GetString("UserName");
             return View();
         }
     }

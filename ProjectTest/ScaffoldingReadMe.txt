@@ -10,3 +10,5 @@ Add the following code to the Configure method in your Application's Startup cla
             template : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
           );
         });
+
+//Code by Tuyên Đẹp Trai HUMG

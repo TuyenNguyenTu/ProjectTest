@@ -49,12 +49,8 @@ namespace ProjectTest.Areas.Admin.Controllers
                         {
                             if (result.PassWord == model.Password)
                             {
-                                // var user = dao.GetAccountByUserName(model.UserName);
-                                var user = context.Accounts.SingleOrDefault(x => x.UserName == model.UserName);
-                                var userSession = new AccountLogin();
-                                userSession.UserName = user.UserName;
-                                userSession.AccountId = user.Id;
-                                HttpContext.Session.SetString("UserName", userSession.UserName);
+
+                                HttpContext.Session.SetString("UserName", model.UserName);
                                 return RedirectToAction("Index", "Home");
                             }
                             else
@@ -88,6 +84,13 @@ namespace ProjectTest.Areas.Admin.Controllers
                 //}
             }
             return View("Index");
+        }
+        [Route("logout")]
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("UserName");
+            return RedirectToAction("Index");
         }
     }
 }
