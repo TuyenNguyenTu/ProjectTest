@@ -10,7 +10,7 @@ using ProjectTest.Models;
 namespace ProjectTest.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class MenuController : Controller
+    public class MenuController : BaseController
     {
         private readonly MyBlogDbContext _context;
 
