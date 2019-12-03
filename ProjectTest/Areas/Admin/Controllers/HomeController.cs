@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace ProjectTest.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
-            ViewBag.getSession = HttpContext.Session.GetString("UserName");
+
             return View();
+
         }
     }
 }

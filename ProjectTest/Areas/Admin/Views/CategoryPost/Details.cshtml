@@ -1,0 +1,61 @@
+﻿@model ProjectTest.Models.CategoryPost
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CategoryPost</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MetaTitle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MetaTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MetaKeyword)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MetaKeyword)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MetaDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MetaDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

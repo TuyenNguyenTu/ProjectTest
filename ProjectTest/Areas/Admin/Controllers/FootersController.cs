@@ -10,22 +10,22 @@ using ProjectTest.Models;
 namespace ProjectTest.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryPostController : BaseController
+    public class FootersController : Controller
     {
         private readonly MyBlogDbContext _context;
 
-        public CategoryPostController(MyBlogDbContext context)
+        public FootersController(MyBlogDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/CategoryPost
+        // GET: Admin/Footers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CategoryPosts.ToListAsync());
+            return View(await _context.Footers.ToListAsync());
         }
 
-        // GET: Admin/CategoryPost/Details/5
+        // GET: Admin/Footers/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts
+            var footer = await _context.Footers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoryPost == null)
+            if (footer == null)
             {
                 return NotFound();
             }
 
-            return View(categoryPost);
+            return View(footer);
         }
 
-        // GET: Admin/CategoryPost/Create
+        // GET: Admin/Footers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/CategoryPost/Create
+        // POST: Admin/Footers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryName,MetaTitle,MetaKeyword,MetaDescription,CreatedDate,ModifiedDate,Status")] CategoryPost categoryPost)
+        public async Task<IActionResult> Create([Bind("Id,Contents,CreatedDate,Status")] Footer footer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoryPost);
+                _context.Add(footer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryPost);
+            return View(footer);
         }
 
-        // GET: Admin/CategoryPost/Edit/5
+        // GET: Admin/Footers/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts.FindAsync(id);
-            if (categoryPost == null)
+            var footer = await _context.Footers.FindAsync(id);
+            if (footer == null)
             {
                 return NotFound();
             }
-            return View(categoryPost);
+            return View(footer);
         }
 
-        // POST: Admin/CategoryPost/Edit/5
+        // POST: Admin/Footers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,CategoryName,MetaTitle,MetaKeyword,MetaDescription,CreatedDate,ModifiedDate,Status")] CategoryPost categoryPost)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Contents,CreatedDate,Status")] Footer footer)
         {
-            if (id != categoryPost.Id)
+            if (id != footer.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(categoryPost);
+                    _context.Update(footer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryPostExists(categoryPost.Id))
+                    if (!FooterExists(footer.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace ProjectTest.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryPost);
+            return View(footer);
         }
 
-        // GET: Admin/CategoryPost/Delete/5
+        // GET: Admin/Footers/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts
+            var footer = await _context.Footers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoryPost == null)
+            if (footer == null)
             {
                 return NotFound();
             }
 
-            return View(categoryPost);
+            return View(footer);
         }
 
-        // POST: Admin/CategoryPost/Delete/5
+        // POST: Admin/Footers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var categoryPost = await _context.CategoryPosts.FindAsync(id);
-            _context.CategoryPosts.Remove(categoryPost);
+            var footer = await _context.Footers.FindAsync(id);
+            _context.Footers.Remove(footer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryPostExists(long id)
+        private bool FooterExists(long id)
         {
-            return _context.CategoryPosts.Any(e => e.Id == id);
+            return _context.Footers.Any(e => e.Id == id);
         }
     }
 }

@@ -10,22 +10,22 @@ using ProjectTest.Models;
 namespace ProjectTest.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryPostController : BaseController
+    public class FeedBackController : Controller
     {
         private readonly MyBlogDbContext _context;
 
-        public CategoryPostController(MyBlogDbContext context)
+        public FeedBackController(MyBlogDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/CategoryPost
+        // GET: Admin/FeedBack
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CategoryPosts.ToListAsync());
+            return View(await _context.FeedBacks.ToListAsync());
         }
 
-        // GET: Admin/CategoryPost/Details/5
+        // GET: Admin/FeedBack/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts
+            var feedBack = await _context.FeedBacks
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoryPost == null)
+            if (feedBack == null)
             {
                 return NotFound();
             }
 
-            return View(categoryPost);
+            return View(feedBack);
         }
 
-        // GET: Admin/CategoryPost/Create
+        // GET: Admin/FeedBack/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/CategoryPost/Create
+        // POST: Admin/FeedBack/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryName,MetaTitle,MetaKeyword,MetaDescription,CreatedDate,ModifiedDate,Status")] CategoryPost categoryPost)
+        public async Task<IActionResult> Create([Bind("Id,Name,Phone,Email,Address,Contents,CreatedDate,Status")] FeedBack feedBack)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoryPost);
+                _context.Add(feedBack);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryPost);
+            return View(feedBack);
         }
 
-        // GET: Admin/CategoryPost/Edit/5
+        // GET: Admin/FeedBack/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts.FindAsync(id);
-            if (categoryPost == null)
+            var feedBack = await _context.FeedBacks.FindAsync(id);
+            if (feedBack == null)
             {
                 return NotFound();
             }
-            return View(categoryPost);
+            return View(feedBack);
         }
 
-        // POST: Admin/CategoryPost/Edit/5
+        // POST: Admin/FeedBack/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,CategoryName,MetaTitle,MetaKeyword,MetaDescription,CreatedDate,ModifiedDate,Status")] CategoryPost categoryPost)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Phone,Email,Address,Contents,CreatedDate,Status")] FeedBack feedBack)
         {
-            if (id != categoryPost.Id)
+            if (id != feedBack.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(categoryPost);
+                    _context.Update(feedBack);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryPostExists(categoryPost.Id))
+                    if (!FeedBackExists(feedBack.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace ProjectTest.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryPost);
+            return View(feedBack);
         }
 
-        // GET: Admin/CategoryPost/Delete/5
+        // GET: Admin/FeedBack/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts
+            var feedBack = await _context.FeedBacks
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoryPost == null)
+            if (feedBack == null)
             {
                 return NotFound();
             }
 
-            return View(categoryPost);
+            return View(feedBack);
         }
 
-        // POST: Admin/CategoryPost/Delete/5
+        // POST: Admin/FeedBack/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var categoryPost = await _context.CategoryPosts.FindAsync(id);
-            _context.CategoryPosts.Remove(categoryPost);
+            var feedBack = await _context.FeedBacks.FindAsync(id);
+            _context.FeedBacks.Remove(feedBack);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryPostExists(long id)
+        private bool FeedBackExists(long id)
         {
-            return _context.CategoryPosts.Any(e => e.Id == id);
+            return _context.FeedBacks.Any(e => e.Id == id);
         }
     }
 }

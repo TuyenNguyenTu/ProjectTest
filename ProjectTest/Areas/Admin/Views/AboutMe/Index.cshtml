@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjectTest.Models.CategoryPost>
+﻿@model IEnumerable<ProjectTest.Models.AboutMe>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,25 +14,37 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MetaTitle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MetaKeyword)
+                @Html.DisplayNameFor(model => model.Introduce)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MetaDescription)
+                @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
             </th>
             <th></th>
         </tr>
@@ -41,25 +53,37 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MetaTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MetaKeyword)
+                @Html.DisplayFor(modelItem => item.Introduce)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MetaDescription)
+                @Html.DisplayFor(modelItem => item.Image)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ModifiedDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -71,7 +71,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr id="row_@item.Id">
                     <td style="text-align:center">
                         @Html.DisplayFor(modelItem => item.UserName)
                     </td>
@@ -103,8 +103,8 @@
                         @(item.Status == true ? "Active" : "Block")
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="label label--mini background-color--primary"><i class="fas fa-edit"></i> Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id" class="label label--mini color--green" style="color:white"><i class="fas fa-info-circle"></i> Details</a> |
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="label label--mini background-color--primary"><i class="fas fa-edit"></i> Edit</a> &nbsp;
+                        <a asp-action="Details" asp-route-id="@item.Id" class="label label--mini color--green" style="color:white"><i class="fas fa-info-circle"></i> Details</a> &nbsp;
                         <a asp-action="Delete" asp-route-id="@item.Id" class="label label--mini background-color--secondary" style="color:white"> <i class="far fa-trash-alt"></i> Delete</a>
                     </td>
                 </tr>
@@ -114,6 +114,7 @@
     <nav aria-label="Suppliers navigation example">
         <vc:pager pagin-list="@Model"></vc:pager>
     </nav>
-    <p><a asp-action="Export">Export</a></p>
+    <br />
+    <p><a asp-action="Export" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-light-blue"><i class="fas fa-file-export"></i> Export</a></p>
 </div>
 

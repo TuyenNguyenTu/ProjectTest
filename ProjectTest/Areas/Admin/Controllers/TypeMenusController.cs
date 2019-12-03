@@ -10,22 +10,22 @@ using ProjectTest.Models;
 namespace ProjectTest.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryPostController : BaseController
+    public class TypeMenusController : Controller
     {
         private readonly MyBlogDbContext _context;
 
-        public CategoryPostController(MyBlogDbContext context)
+        public TypeMenusController(MyBlogDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/CategoryPost
+        // GET: Admin/TypeMenus
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CategoryPosts.ToListAsync());
+            return View(await _context.TypeMenus.ToListAsync());
         }
 
-        // GET: Admin/CategoryPost/Details/5
+        // GET: Admin/TypeMenus/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts
+            var typeMenu = await _context.TypeMenus
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoryPost == null)
+            if (typeMenu == null)
             {
                 return NotFound();
             }
 
-            return View(categoryPost);
+            return View(typeMenu);
         }
 
-        // GET: Admin/CategoryPost/Create
+        // GET: Admin/TypeMenus/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/CategoryPost/Create
+        // POST: Admin/TypeMenus/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryName,MetaTitle,MetaKeyword,MetaDescription,CreatedDate,ModifiedDate,Status")] CategoryPost categoryPost)
+        public async Task<IActionResult> Create([Bind("Id,Name")] TypeMenu typeMenu)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoryPost);
+                _context.Add(typeMenu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryPost);
+            return View(typeMenu);
         }
 
-        // GET: Admin/CategoryPost/Edit/5
+        // GET: Admin/TypeMenus/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts.FindAsync(id);
-            if (categoryPost == null)
+            var typeMenu = await _context.TypeMenus.FindAsync(id);
+            if (typeMenu == null)
             {
                 return NotFound();
             }
-            return View(categoryPost);
+            return View(typeMenu);
         }
 
-        // POST: Admin/CategoryPost/Edit/5
+        // POST: Admin/TypeMenus/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,CategoryName,MetaTitle,MetaKeyword,MetaDescription,CreatedDate,ModifiedDate,Status")] CategoryPost categoryPost)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name")] TypeMenu typeMenu)
         {
-            if (id != categoryPost.Id)
+            if (id != typeMenu.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(categoryPost);
+                    _context.Update(typeMenu);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryPostExists(categoryPost.Id))
+                    if (!TypeMenuExists(typeMenu.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace ProjectTest.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoryPost);
+            return View(typeMenu);
         }
 
-        // GET: Admin/CategoryPost/Delete/5
+        // GET: Admin/TypeMenus/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace ProjectTest.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoryPost = await _context.CategoryPosts
+            var typeMenu = await _context.TypeMenus
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoryPost == null)
+            if (typeMenu == null)
             {
                 return NotFound();
             }
 
-            return View(categoryPost);
+            return View(typeMenu);
         }
 
-        // POST: Admin/CategoryPost/Delete/5
+        // POST: Admin/TypeMenus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var categoryPost = await _context.CategoryPosts.FindAsync(id);
-            _context.CategoryPosts.Remove(categoryPost);
+            var typeMenu = await _context.TypeMenus.FindAsync(id);
+            _context.TypeMenus.Remove(typeMenu);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryPostExists(long id)
+        private bool TypeMenuExists(long id)
         {
-            return _context.CategoryPosts.Any(e => e.Id == id);
+            return _context.TypeMenus.Any(e => e.Id == id);
         }
     }
 }

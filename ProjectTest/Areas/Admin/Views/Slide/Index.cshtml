@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjectTest.Models.CategoryPost>
+﻿@model IEnumerable<ProjectTest.Models.Slide>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,19 +14,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
+                @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MetaTitle)
+                @Html.DisplayNameFor(model => model.DisplayOrder)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MetaKeyword)
+                @Html.DisplayNameFor(model => model.Link)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MetaDescription)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedDate)
@@ -41,19 +44,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
+                @Html.DisplayFor(modelItem => item.Image)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MetaTitle)
+                @Html.DisplayFor(modelItem => item.DisplayOrder)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MetaKeyword)
+                @Html.DisplayFor(modelItem => item.Link)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MetaDescription)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ModifiedDate)

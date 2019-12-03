@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjectTest.Models.CategoryPost>
+﻿@model IEnumerable<ProjectTest.Models.Footer>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,22 +14,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaKeyword)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaDescription)
+                @Html.DisplayNameFor(model => model.Contents)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -41,22 +29,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaKeyword)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaDescription)
+                @Html.DisplayFor(modelItem => item.Contents)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)

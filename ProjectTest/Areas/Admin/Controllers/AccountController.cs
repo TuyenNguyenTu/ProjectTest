@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ using ReflectionIT.Mvc.Paging;
 namespace ProjectTest.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly MyBlogDbContext _context;
         //tiêm phụ thuộc dependency injection
@@ -54,22 +55,25 @@ namespace ProjectTest.Areas.Admin.Controllers
             }
             stream.Position = 0;
             var fileName = $"DanhSach_Account_{DateTime.Now.ToString("yyyyMMddHHmmss")}.xlsx";
-            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         // GET: Admin/Account
-        public async Task<IActionResult> Index(string searchString,int page=1)
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
+
             var query = _context.Accounts.AsNoTracking().OrderBy(x => x.CreatedDate);
             var model = await PagingList.CreateAsync(query, 2, page);
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View(model.Where(x=>x.DisplayName.Contains(searchString)));
+                return View(model.Where(x => x.DisplayName.Contains(searchString)));
             }
             else
             {
                 return View(model);
             }
+
+
 
         }
 
