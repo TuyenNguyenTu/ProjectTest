@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,16 +23,52 @@ namespace ProjectTest.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/Account
-        public async Task<IActionResult> Index(string searchString)
+        public IActionResult Export()
         {
+            var data = _context.Accounts.OrderBy(x => x.Id).ToList();
+
+            var stream = new MemoryStream();
+            //để tạo file excel ta cần dùng excelPagkage
+            using (var pakage = new ExcelPackage(stream))
+            {
+                var sheet = pakage.Workbook.Worksheets.Add("Tài khoản");
+                //đổ dữ liệu vào sheet
+                //sheet.Cells.LoadFromCollection(data, true);
+                sheet.Cells[1, 1].Value = "Tài khoản";
+                sheet.Cells[1, 2].Value = "Tên hiển thị";
+                sheet.Cells[1, 3].Value = "Địa chỉ";
+                sheet.Cells[1, 4].Value = "Email";
+                sheet.Cells[1, 5].Value = "Số điện thoại";
+                int rowIndex = 2;
+                foreach (var item in data)
+                {
+                    sheet.Cells[rowIndex, 1].Value = item.UserName;
+                    sheet.Cells[rowIndex, 2].Value = item.DisplayName;
+                    sheet.Cells[rowIndex, 3].Value = item.Address;
+                    sheet.Cells[rowIndex, 4].Value = item.Email;
+                    sheet.Cells[rowIndex, 5].Value = item.Phone;
+                }
+                //save
+                pakage.Save();//file excel đang nằm trong memory stream
+
+            }
+            stream.Position = 0;
+            var fileName = $"DanhSach_Account_{DateTime.Now.ToString("yyyyMMddHHmmss")}.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",fileName);
+        }
+
+        // GET: Admin/Account
+        public async Task<IActionResult> Index(string searchString,int page=1)
+        {
+            var query = _context.Accounts.AsNoTracking().OrderBy(x => x.CreatedDate);
+            var model = await PagingList.CreateAsync(query, 2, page);
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View(await _context.Accounts.Where(x => x.DisplayName == searchString).ToListAsync());
+                return View(model.Where(x=>x.DisplayName.Contains(searchString)));
             }
             else
             {
-                return View(await _context.Accounts.ToListAsync());
+                return View(model);
             }
 
         }

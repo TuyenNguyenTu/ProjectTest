@@ -1,5 +1,7 @@
-﻿@model IEnumerable<ProjectTest.Models.Account>
-
+﻿
+@model ReflectionIT.Mvc.Paging.IPagingList<ProjectTest.Models.Account>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *,ReflectionIT.Mvc.Paging
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -7,26 +9,32 @@
 
 <h2>Danh sách tài khoản</h2>
 
+
 <p>
     <a asp-action="Create"><i class="fas fa-plus-square"></i> Create New</a>
-</p>
-<div class="col-md-12" style="text-align:center">
+</p> 
 
-    @using (Html.BeginForm("Index", "Account", FormMethod.Get))
-    {
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="col-md-4">
-                    <span>Tìm kiếm: </span>
-                    <input type="text" name="searchString" />
-                    <button type="submit" value="Tìm kiếm">Tìm kiếm</button>
-                </div>
-                <div class="col-md-4">
-                </div>
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-md-4">
+                <span style="color:white">Tìm kiếm: </span>
+                <input type="text" name="searchString" />
+                <button type="submit" value="Tìm kiếm">Tìm kiếm</button>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
-     }
-    <br />
+    </div>
+}
+<br />
+
+<div class="col-md-12">
+    <nav aria-label="Account navigation">
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+    </nav>
     <table class="mdl-data-table mdl-js-data-table">
         <thead>
             <tr>
@@ -52,10 +60,10 @@
                     Ngày chỉnh sửa cuối
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsAdmin)
+                    Admin
                 </th>
                 <th style="text-align:center">
-                    @Html.DisplayNameFor(model => model.Status)
+                    Trạng thái
                 </th>
                 <th style="text-align:center">Action</th>
             </tr>
@@ -103,5 +111,9 @@
             }
         </tbody>
     </table>
+    <nav aria-label="Suppliers navigation example">
+        <vc:pager pagin-list="@Model"></vc:pager>
+    </nav>
+    <p><a asp-action="Export">Export</a></p>
 </div>
 

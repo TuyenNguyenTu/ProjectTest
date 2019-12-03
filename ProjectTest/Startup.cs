@@ -16,6 +16,7 @@ using ProjectTest.Models;
 using Microsoft.AspNetCore.Session;
 using ProjectTest.Repository.InterfaceRepository;
 using ProjectTest.Repository.Reposi;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest
 {
@@ -58,10 +59,12 @@ namespace ProjectTest
             //add scope: kết dính với nhau, đại loại thế
             services.AddScoped<ICategoryPostRepository, CategoryPostRepository>();
             
-            
+           
             
             // add dich vu MVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddPaging();
 
             //add dịch vụ session
             services.AddSession();
