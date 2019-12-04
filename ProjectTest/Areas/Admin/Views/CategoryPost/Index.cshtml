@@ -1,72 +1,67 @@
-﻿@model IEnumerable<ProjectTest.Models.CategoryPost>
+﻿@model ReflectionIT.Mvc.Paging.IPagingList<ProjectTest.Models.CategoryPost>
+@using ReflectionIT.Mvc.Paging
+
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 style="color:white">Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><i class="fas fa-plus-square"></i> Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaKeyword)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaKeyword)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@using (Html.BeginForm("Index", "CategoryPost", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-md-4">
+                <span style="color:white">Tìm kiếm: </span>
+                <input type="text" name="searchString" value="@ViewBag.searchString" />
+                <button type="submit" value="Tìm kiếm">Tìm kiếm</button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
 }
-    </tbody>
-</table>
+<br />
+<div class="col-md-12">
+    <nav aria-label="CategoryPost navigation">
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+    </nav>
+    <table class="mdl-data-table mdl-js-data-table">
+        <thead>
+            <tr>
+                <th style="text-align:center">Tên loại</th>
+                <th style="text-align:center">Ngày tạo </th>
+                <th style="text-align:center">Ngày sửa cuối </th>
+                <th style="text-align:center">Trạng thái </th>
+                <th style="text-align:center">Action </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.ModifiedDate)</td>
+                    <td style="text-align:center">@(item.Status == true ? "Active" : "Block")</td>
+                    <td style="text-align:center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="label label--mini background-color--primary"><i class="fas fa-edit"></i> Edit</a> &nbsp;
+                        <a asp-action="Details" asp-route-id="@item.Id" class="label label--mini color--green" style="color:white"><i class="fas fa-info-circle"></i> Details</a> &nbsp;
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="label label--mini background-color--secondary" style="color:white"> <i class="far fa-trash-alt"></i> Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav aria-label="Suppliers navigation example">
+        <vc:pager pagin-list="@Model"></vc:pager>
+    </nav>
+    <br />
+    <p><a asp-action="Export" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-light-blue"><i class="fas fa-file-export"></i> Export</a></p>
+</div>
+

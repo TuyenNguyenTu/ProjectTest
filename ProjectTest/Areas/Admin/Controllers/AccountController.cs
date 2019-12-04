@@ -35,21 +35,21 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 var sheet = pakage.Workbook.Worksheets.Add("Tài khoản");
                 //đổ dữ liệu vào sheet
-                //sheet.Cells.LoadFromCollection(data, true);
-                sheet.Cells[1, 1].Value = "Tài khoản";
-                sheet.Cells[1, 2].Value = "Tên hiển thị";
-                sheet.Cells[1, 3].Value = "Địa chỉ";
-                sheet.Cells[1, 4].Value = "Email";
-                sheet.Cells[1, 5].Value = "Số điện thoại";
-                int rowIndex = 2;
-                foreach (var item in data)
-                {
-                    sheet.Cells[rowIndex, 1].Value = item.UserName;
-                    sheet.Cells[rowIndex, 2].Value = item.DisplayName;
-                    sheet.Cells[rowIndex, 3].Value = item.Address;
-                    sheet.Cells[rowIndex, 4].Value = item.Email;
-                    sheet.Cells[rowIndex, 5].Value = item.Phone;
-                }
+                sheet.Cells.LoadFromCollection(data, true);
+                //sheet.Cells[1, 1].Value = "Tài khoản";
+                //sheet.Cells[1, 2].Value = "Tên hiển thị";
+                //sheet.Cells[1, 3].Value = "Địa chỉ";
+                //sheet.Cells[1, 4].Value = "Email";
+                //sheet.Cells[1, 5].Value = "Số điện thoại";
+                //int rowIndex = 2;
+                //foreach (var item in data)
+                //{
+                //    sheet.Cells[rowIndex, 1].Value = item.UserName;
+                //    sheet.Cells[rowIndex, 2].Value = item.DisplayName;
+                //    sheet.Cells[rowIndex, 3].Value = item.Address;
+                //    sheet.Cells[rowIndex, 4].Value = item.Email;
+                //    sheet.Cells[rowIndex, 5].Value = item.Phone;
+                //}
                 //save
                 pakage.Save();//file excel đang nằm trong memory stream
 

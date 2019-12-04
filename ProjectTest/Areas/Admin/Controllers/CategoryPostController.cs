@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using ProjectTest.DAO;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,9 +24,45 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/CategoryPost
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString,int page=1)
         {
-            return View(await _context.CategoryPosts.ToListAsync());
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var query = _context.CategoryPosts.Where(x => x.CategoryName.Contains(searchString)).AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                ViewBag.SearchString = searchString;
+                return View(model);
+            }
+            else
+            {
+                var query = _context.CategoryPosts.AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                return View(model);
+            }
+        }
+        public IActionResult Export()
+        {
+            var data = _context.CategoryPosts.OrderBy(x => x.Id).ToList();
+            var stream = new MemoryStream();
+            using(var pakage = new ExcelPackage(stream))
+            {
+                var sheet = pakage.Workbook.Worksheets.Add("Sheet 1");
+                sheet.Cells.LoadFromCollection(data, true);
+                //sheet.Cells[1, 1].Value = "Mã";
+                //sheet.Cells[1, 2].Value = "Tên loại";
+                //sheet.Cells[1, 3].Value = "Trạng thái";
+                //int rowIndex = 2;
+                //foreach (var item in data)
+                //{
+                //    sheet.Cells[rowIndex, 1].Value = item.Id;
+                //    sheet.Cells[rowIndex, 2].Value = item.CategoryName;
+                //    sheet.Cells[rowIndex, 3].Value = item.Status;
+                //}
+                pakage.Save();
+            }
+            stream.Position = 0;
+            var fileName = $"DanhSachLoaiBaiViet_{DateTime.Now.ToString("yyyyMMddddHHmmss")}.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         // GET: Admin/CategoryPost/Details/5
@@ -54,10 +94,12 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryName,MetaTitle,MetaKeyword,MetaDescription,CreatedDate,ModifiedDate,Status")] CategoryPost categoryPost)
+        public async Task<IActionResult> Create([Bind("Id,CategoryName,Status")] CategoryPost categoryPost)
         {
             if (ModelState.IsValid)
             {
+                categoryPost.MetaTitle = XuLyChuoi.GetMetaTitle(categoryPost.CategoryName);
+                categoryPost.CreatedDate = DateTime.Now;
                 _context.Add(categoryPost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +128,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,CategoryName,MetaTitle,MetaKeyword,MetaDescription,CreatedDate,ModifiedDate,Status")] CategoryPost categoryPost)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,CategoryName,Status")] CategoryPost categoryPost)
         {
             if (id != categoryPost.Id)
             {
@@ -97,6 +139,8 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
+                    categoryPost.MetaTitle = XuLyChuoi.GetMetaTitle(categoryPost.CategoryName);
+                    categoryPost.ModifiedDate = DateTime.Now;
                     _context.Update(categoryPost);
                     await _context.SaveChangesAsync();
                 }

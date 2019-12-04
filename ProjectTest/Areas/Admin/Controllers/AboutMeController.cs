@@ -50,22 +50,23 @@ namespace ProjectTest.Areas.Admin.Controllers
             using(var pakage = new ExcelPackage(stream))
             {
                 var sheet = pakage.Workbook.Worksheets.Add("Sheet 1");
-                sheet.Cells[1, 1].Value = "Họ";
-                sheet.Cells[1, 2].Value = "Tên";
-                sheet.Cells[1, 3].Value = "Tiêu đề";
-                sheet.Cells[1, 4].Value = "Giới thiệu";
-                sheet.Cells[1, 5].Value = "Ngày viết bài";
-                sheet.Cells[1, 6].Value = "Người viết bài";
-                int rowIndex = 2;
-                foreach (var item in data)
-                {
-                    sheet.Cells[rowIndex, 1].Value = item.FirstName;
-                    sheet.Cells[rowIndex, 2].Value = item.LastName;
-                    sheet.Cells[rowIndex, 3].Value = item.Title;
-                    sheet.Cells[rowIndex, 4].Value = item.Introduce;
-                    sheet.Cells[rowIndex, 5].Value = item.CreatedDate;
-                    sheet.Cells[rowIndex, 6].Value = item.CreatedBy;
-                }
+                sheet.Cells.LoadFromCollection(data, true);
+                //sheet.Cells[1, 1].Value = "Họ";
+                //sheet.Cells[1, 2].Value = "Tên";
+                //sheet.Cells[1, 3].Value = "Tiêu đề";
+                //sheet.Cells[1, 4].Value = "Giới thiệu";
+                //sheet.Cells[1, 5].Value = "Ngày viết bài";
+                //sheet.Cells[1, 6].Value = "Người viết bài";
+                //int rowIndex = 2;
+                //foreach (var item in data)
+                //{
+                //    sheet.Cells[rowIndex, 1].Value = item.FirstName;
+                //    sheet.Cells[rowIndex, 2].Value = item.LastName;
+                //    sheet.Cells[rowIndex, 3].Value = item.Title;
+                //    sheet.Cells[rowIndex, 4].Value = item.Introduce;
+                //    sheet.Cells[rowIndex, 5].Value = item.CreatedDate;
+                //    sheet.Cells[rowIndex, 6].Value = item.CreatedBy;
+                //}
                 pakage.Save();
             }
             stream.Position = 0;
