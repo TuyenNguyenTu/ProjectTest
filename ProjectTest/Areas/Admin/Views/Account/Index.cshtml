@@ -1,7 +1,6 @@
-﻿
-@model ReflectionIT.Mvc.Paging.IPagingList<ProjectTest.Models.Account>
+﻿@model ReflectionIT.Mvc.Paging.IPagingList<ProjectTest.Models.Account>
 @using ReflectionIT.Mvc.Paging
-@addTagHelper *,ReflectionIT.Mvc.Paging
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -15,20 +14,20 @@
 </p> 
 
 
-@using (Html.BeginForm("Index", "Account", FormMethod.Get))
-{
+<form method="get" asp-controller="Account" asp-action="Index">
     <div class="row">
         <div class="col-lg-12">
             <div class="col-md-4">
                 <span style="color:white">Tìm kiếm: </span>
-                <input type="text" name="searchString" />
+                <input type="text" name="searchString" value="@ViewBag.search" />
                 <button type="submit" value="Tìm kiếm">Tìm kiếm</button>
             </div>
             <div class="col-md-4">
             </div>
         </div>
     </div>
-}
+</form>
+
 <br />
 
 <div class="col-md-12">
@@ -71,7 +70,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr id="row_@item.Id">
+                <tr id="">
                     <td style="text-align:center">
                         @Html.DisplayFor(modelItem => item.UserName)
                     </td>

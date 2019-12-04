@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Korzh.EasyQuery.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -61,15 +62,17 @@ namespace ProjectTest.Areas.Admin.Controllers
         // GET: Admin/Account
         public async Task<IActionResult> Index(string searchString, int page = 1)
         {
-
-            var query = _context.Accounts.AsNoTracking().OrderBy(x => x.CreatedDate);
-            var model = await PagingList.CreateAsync(query, 2, page);
             if (!string.IsNullOrEmpty(searchString))
             {
-                return View(model.Where(x => x.DisplayName.Contains(searchString)));
+                var query1 = _context.Accounts.Where(x => x.UserName.Contains(searchString)).AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model1 = await PagingList.CreateAsync(query1, 2, page);
+                ViewBag.search = searchString;
+                return View(model1);
             }
             else
             {
+                var query = _context.Accounts.AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
                 return View(model);
             }
 

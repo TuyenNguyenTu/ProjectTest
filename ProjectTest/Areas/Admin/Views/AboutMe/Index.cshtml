@@ -1,96 +1,78 @@
-﻿@model IEnumerable<ProjectTest.Models.AboutMe>
+﻿@model ReflectionIT.Mvc.Paging.IPagingList<ProjectTest.Models.AboutMe>
+@using ReflectionIT.Mvc.Paging
+
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 style="color:white">Thông tin cá nhân</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"><i class="fas fa-plus-square"></i> Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Introduce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetaTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Introduce)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+@using (Html.BeginForm("Index", "AboutMe", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-md-4">
+                <span style="color:white">Tìm kiếm: </span>
+                <input type="text" name="searchString" value="@ViewBag.searchString"/>
+                <button type="submit" value="Tìm kiếm">Tìm kiếm</button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
 }
-    </tbody>
-</table>
+<br />
+<div class="col-md-12">
+    <nav aria-label="AboutMe navigation">
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+    </nav>
+    <table class="class= mdl-data-table mdl-js-data-table">
+        <thead>
+            <tr>
+                <th style="text-align:center">Họ </th>
+                <th style="text-align:center">Tên </th>
+                <th style="text-align:center">Tiêu đề </th>
+                <th style="text-align:center">Giới thiệu </th>
+                <th style="text-align:center">Ngày viết bài </th>
+                <th style="text-align:center">Người viết bài </th>
+                <th style="text-align:center">Ngày sửa gần nhất </th>
+                <th style="text-align:center">Trạng thái </th>
+                <th style="text-align:center">Ghi chú </th>
+                <th style="text-align:center">Action </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.Introduce)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.CreatedBy)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.ModifiedDate)</td>
+                    <td style="text-align:center">@(item.Status == true ? "Active" : "Block")</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.Note)</td>
+                    <td style="text-align:center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="label label--mini background-color--primary"><i class="fas fa-edit"></i> Edit</a> &nbsp;
+                        <a asp-action="Details" asp-route-id="@item.Id" class="label label--mini color--green" style="color:white"><i class="fas fa-info-circle"></i> Details</a> &nbsp;
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="label label--mini background-color--secondary" style="color:white"> <i class="far fa-trash-alt"></i> Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav aria-label="Suppliers navigation example">
+        <vc:pager pagin-list="@Model"></vc:pager>
+    </nav>
+    <br />
+    <p><a asp-action="Export" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-light-blue"><i class="fas fa-file-export"></i> Export</a></p>
+</div>
+

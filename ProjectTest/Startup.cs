@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Session;
 using ProjectTest.Repository.InterfaceRepository;
 using ProjectTest.Repository.Reposi;
 using ReflectionIT.Mvc.Paging;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ProjectTest
 {
@@ -38,7 +39,7 @@ namespace ProjectTest
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             //add các dịch vụ liên quan
             services.AddAuthentication(options=>{
                 options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
@@ -65,7 +66,6 @@ namespace ProjectTest
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddPaging();
-
             //add dịch vụ session
             services.AddSession();
 

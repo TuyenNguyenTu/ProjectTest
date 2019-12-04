@@ -9,74 +9,68 @@
 
 <h4>AboutMe</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+<main class="mdl-layout__content ui-form-components">
+    <div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
+        <div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone">
+            <div class="mdl-card__title">
+                <h5 class="mdl-card__title-text text-color--white">Chỉnh sửa tài khoản</h5>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+            <div class="mdl-card__supporting-text">
+                <form asp-action="Edit" class="form form--basic">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="mdl-textfield mdl-js-textfield full-size">
+                        <label asp-for="FirstName" class="mdl-textfield__label"></label>
+                        <input asp-for="FirstName" class="mdl-textfield__input" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield full-size">
+                        <label asp-for="LastName" class="mdl-textfield__label"></label>
+                        <input asp-for="LastName" class="mdl-textfield__input" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield full-size">
+                        <label asp-for="Title" class="mdl-textfield__label"></label>
+                        <input asp-for="Title" class="mdl-textfield__input" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield full-size">
+                        <label asp-for="Introduce" class="mdl-textfield__label"></label>
+                        <input asp-for="Introduce" class="mdl-textfield__input" />
+                        <span asp-validation-for="Introduce" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield full-size">
+                        <label asp-for="Image" class="mdl-textfield__label"></label>
+                        <input asp-for="Image" class="mdl-textfield__input" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield full-size">
+                        <label asp-for="CreatedBy" class="mdl-textfield__label"></label>
+                        <input asp-for="CreatedBy" class="mdl-textfield__input" />
+                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield full-size">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="Status" />    Hiển thị
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield full-size">
+                        <label asp-for="Note" class="mdl-textfield__label"></label>
+                        <input asp-for="Note" class="mdl-textfield__input" />
+                        <span asp-validation-for="Note" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-light-blue" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MetaTitle" class="control-label"></label>
-                <input asp-for="MetaTitle" class="form-control" />
-                <span asp-validation-for="MetaTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Introduce" class="control-label"></label>
-                <input asp-for="Introduce" class="form-control" />
-                <span asp-validation-for="Introduce" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedDate" class="control-label"></label>
-                <input asp-for="ModifiedDate" class="form-control" />
-                <span asp-validation-for="ModifiedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</main>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
 </div>
 

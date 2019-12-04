@@ -24,7 +24,7 @@ namespace ProjectTest.Models
         public DateTime? CreatedDate { set; get; }
         public DateTime? ModifiedDate { set; get; }
         [Display(Name ="Trạng thái")]
-        public bool? Status { set; get; }
+        public bool Status { set; get; }
 
         public ICollection<Post> Posts { set; get; }
     }

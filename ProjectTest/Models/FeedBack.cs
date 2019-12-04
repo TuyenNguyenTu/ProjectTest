@@ -44,7 +44,7 @@ namespace ProjectTest.Models
 
         [Display(Name = "Trạng thái")]
         [DefaultValue("true")]
-        public bool? Status { set; get; }
+        public bool Status { set; get; }
         
     }
 }

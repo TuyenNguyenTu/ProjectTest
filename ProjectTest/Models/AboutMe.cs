@@ -51,7 +51,7 @@ namespace ProjectTest.Models
 
         [Display(Name = "Trạng thái")]
         [Required]
-        public bool? Status { set; get; }
+        public bool Status { set; get; }
 
         [Display(Name = "Ghi chú")]
         [Column(TypeName = "ntext")]
