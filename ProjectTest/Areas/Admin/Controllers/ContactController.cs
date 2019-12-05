@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,9 +23,36 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/Contact
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
-            return View(await _context.Contacts.ToListAsync());
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var query = _context.Contacts.Where(x => x.Contents.Contains(searchString)).AsNoTracking().OrderBy(x => x.Id);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                ViewBag.searchString = searchString;
+                return View(model);
+            }
+            else
+            {
+                var query = _context.Contacts.AsNoTracking().OrderBy(x => x.Id);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                return View(model);
+            }
+         
+        }
+        public IActionResult Export()
+        {
+            var data = _context.Contacts.OrderBy(x => x.Id).ToList();
+            var stream = new MemoryStream();
+            using (var pakage = new ExcelPackage(stream))
+            {
+                var sheet = pakage.Workbook.Worksheets.Add("Sheet 1");
+                sheet.Cells.LoadFromCollection(data, true);
+                pakage.Save();
+            }
+            stream.Position = 0;
+            var fileName = $"DanhSachLienHe_{DateTime.Now.ToString("yyyyMMddddHHmmss")}.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         // GET: Admin/Contact/Details/5
