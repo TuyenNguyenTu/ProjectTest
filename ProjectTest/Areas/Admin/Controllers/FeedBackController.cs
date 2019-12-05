@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,11 +23,36 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/FeedBack
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
-            return View(await _context.FeedBacks.ToListAsync());
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var query = _context.FeedBacks.Where(x => x.Name.Contains(searchString) || x.Contents.Contains(searchString)).AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                ViewBag.searchString = searchString;
+                return View(model);
+            }
+            else
+            {
+                var query = _context.FeedBacks.AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                return View(model);
+            }
         }
-
+        public IActionResult Export()
+        {
+            var data = _context.FeedBacks.OrderBy(x => x.Id).ToList();
+            var stream = new MemoryStream();
+            using (var pakage = new ExcelPackage(stream))
+            {
+                var sheet = pakage.Workbook.Worksheets.Add("Sheet 1");
+                sheet.Cells.LoadFromCollection(data, true);
+                pakage.Save();
+            }
+            stream.Position = 0;
+            var fileName = $"DanhSachTinPhanHoi_{DateTime.Now.ToString("yyyyMMddddHHmmss")}.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
         // GET: Admin/FeedBack/Details/5
         public async Task<IActionResult> Details(long? id)
         {
@@ -54,10 +82,11 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Phone,Email,Address,Contents,CreatedDate,Status")] FeedBack feedBack)
+        public async Task<IActionResult> Create([Bind("Id,Name,Phone,Email,Address,Contents,Status")] FeedBack feedBack)
         {
             if (ModelState.IsValid)
             {
+                feedBack.CreatedDate = DateTime.Now;
                 _context.Add(feedBack);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +115,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Phone,Email,Address,Contents,CreatedDate,Status")] FeedBack feedBack)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Phone,Email,Address,Contents,Status")] FeedBack feedBack)
         {
             if (id != feedBack.Id)
             {

@@ -5,43 +5,40 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-    <div class="mdl-card mdl-shadow--2dp employer-form">
-        <div class="mdl-card__title">
-            <h2>Tạo mới Liên hệ</h2>
-            <div class="mdl-card__subtitle">Vui lòng nhập đầy đủ thông tin</div>
-        </div>
-
-        <div class="mdl-card__supporting-text">
-            <form class="form" asp-action="Create">
-                <div class="form__article">
-                    <h3>Dữ liệu tài khoản</h3>
-                    <div class="mdl-grid">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <textarea class="mdl-textfield__input" type="text" asp-for="Contents"></textarea>
-                            <label class="mdl-textfield__label" asp-for="Contents"></label>
-                            <span asp-validation-for="Contents" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal" />
-                    </div>
-                </div>
-            </form>
-            <div>
-                <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
-            </div>
-        </div>
+<div class="mdl-card mdl-shadow--2dp employer-form">
+    <div class="mdl-card__title">
+        <h2>Tạo mới Liên hệ</h2>
+        <div class="mdl-card__subtitle">Vui lòng nhập đầy đủ thông tin</div>
     </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="mdl-card__supporting-text">
+        <form class="form" asp-action="Create">
+            <div class="form__article">
+                <h3>Dữ liệu tài khoản</h3>
+                <div class="mdl-grid">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <textarea class="mdl-textfield__input" type="text" asp-for="Contents"></textarea>
+                        <label class="mdl-textfield__label" asp-for="Contents"></label>
+                        <span asp-validation-for="Contents" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal" />
+                </div>
+            </div>
+        </form>
+        <div>
+            <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+        </div>
+    </div>
 </div>
+
 
