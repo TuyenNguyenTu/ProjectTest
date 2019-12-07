@@ -42,7 +42,7 @@ namespace ProjectTest.Models
         [Display(Name = "Ngày chỉnh sửa gần nhất")]
         public DateTime? ModifiedDate { set; get; }
 
-        [Display(Name = "Trạng thái")]
+        [Display(Name = "Hiển thị")]
         [DefaultValue("true")]
         public bool Status { set; get; }
     }

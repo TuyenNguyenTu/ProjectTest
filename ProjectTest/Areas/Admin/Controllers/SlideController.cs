@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,9 +22,21 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/Slide
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int page =1)
         {
-            return View(await _context.Slides.ToListAsync());
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var query = _context.Slides.Where(x => x.Description.Contains(searchString)).AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                ViewBag.searchString = searchString;
+                return View(model);
+            }
+            else
+            {
+                var query = _context.Slides.AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                return View(model);
+            }
         }
 
         // GET: Admin/Slide/Details/5
@@ -54,10 +68,12 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Image,DisplayOrder,Link,Description,CreatedDate,CreatedBy,ModifiedDate,Status")] Slide slide)
+        public async Task<IActionResult> Create([Bind("Id,Image,DisplayOrder,Link,Description,Status")] Slide slide)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                slide.CreatedDate = DateTime.Now;
+                slide.CreatedBy = HttpContext.Session.GetString("UserName");
                 _context.Add(slide);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +102,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Image,DisplayOrder,Link,Description,CreatedDate,CreatedBy,ModifiedDate,Status")] Slide slide)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Image,DisplayOrder,Link,Description,Status")] Slide slide)
         {
             if (id != slide.Id)
             {
@@ -97,6 +113,7 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
+                    slide.ModifiedDate = DateTime.Now;
                     _context.Update(slide);
                     await _context.SaveChangesAsync();
                 }

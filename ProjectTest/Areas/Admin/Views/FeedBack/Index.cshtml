@@ -52,7 +52,7 @@
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.Address)</td>
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.Contents)</td>
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.CreatedDate)</td>
-                    <td style="text-align:center">@(item.Status == true ? "Đã đọc" : "Chưa đọc")</td>
+                    <td style="text-align:center">@(item.Status == true ? "Chưa đọc" : "Đã đọc")</td>
                     <td style="text-align:center">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="label label--mini background-color--primary"><i class="fas fa-edit"></i> Edit</a> &nbsp;
                         <a asp-action="Details" asp-route-id="@item.Id" class="label label--mini color--green" style="color:white"><i class="fas fa-info-circle"></i> Details</a> &nbsp;
