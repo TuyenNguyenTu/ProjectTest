@@ -5,28 +5,27 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Edit</h2>
-
-<h4>TypeMenu</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
+    <div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone">
+        <div class="mdl-card__title">
+            <h5 class="mdl-card__title-text text-color--white">Chỉnh sửa kiểu menu</h5>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <form class="form form--basic" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+          
+                <div class="mdl-textfield mdl-js-textfield full-size">
+                    <label asp-for="Name" class="mdl-textfield__label"></label>
+                    <input asp-for="Name" class="mdl-textfield__input" style="color:white" />
+                    <span asp-validation-for="Name" class="text-danger" style="color:white"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-light-blue" />
+                </div>
+            </form>
+            <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

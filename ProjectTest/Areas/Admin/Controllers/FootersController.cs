@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,9 +21,21 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/Footers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
-            return View(await _context.Footers.ToListAsync());
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var query = _context.Footers.Where(x => x.Contents.Contains(searchString)).AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                ViewBag.searchString = searchString;
+                return View(model);
+            }
+            else
+            {
+                var query = _context.Footers.AsNoTracking().OrderBy(x => x.CreatedDate);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                return View(model);
+            }
         }
 
         // GET: Admin/Footers/Details/5
@@ -54,10 +67,11 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Contents,CreatedDate,Status")] Footer footer)
+        public async Task<IActionResult> Create([Bind("Id,Contents,Status")] Footer footer)
         {
             if (ModelState.IsValid)
             {
+                footer.CreatedDate = DateTime.Now;
                 _context.Add(footer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +100,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Contents,CreatedDate,Status")] Footer footer)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Contents,Status")] Footer footer)
         {
             if (id != footer.Id)
             {

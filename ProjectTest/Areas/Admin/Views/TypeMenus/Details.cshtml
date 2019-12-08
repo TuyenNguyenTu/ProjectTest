@@ -5,21 +5,33 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>TypeMenu</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
+    <div class="">
+        <div class="mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+                <h2>Thông tin chi tiết</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <form class="form form--basic">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--1-col-phone">
+                        </div>
+                        <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone form__article">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                <input class="mdl-textfield__input" type="text" value="@Html.DisplayFor(model=>model.Name)" />
+                                <label class="mdl-textfield__label" for="profile-floating-first-name">Hình ảnh</label>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal"><i class="fas fa-edit"></i> Edit</a> &nbsp; &nbsp;
+                    <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

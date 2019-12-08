@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,9 +21,21 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/TypeMenus
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
-            return View(await _context.TypeMenus.ToListAsync());
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var query = _context.TypeMenus.Where(x => x.Name.Contains(searchString)).AsNoTracking().OrderBy(x => x.Id);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                ViewBag.searchString = searchString;
+                return View(model);
+            }
+            else
+            {
+                var query = _context.TypeMenus.AsNoTracking().OrderBy(x => x.Id);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                return View(model);
+            }
         }
 
         // GET: Admin/TypeMenus/Details/5
