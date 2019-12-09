@@ -170,7 +170,7 @@ namespace ProjectTest.Migrations
                     ModifiedBy = table.Column<string>(type: "nvarchar(250)", nullable: true),
                     MetaKeyword = table.Column<string>(type: "nvarchar(250)", nullable: true),
                     MetaDescription = table.Column<string>(type: "nvarchar(500)", nullable: true),
-                    ViewCount = table.Column<long>(nullable: true),
+                    ViewCount = table.Column<long>(defaultValueSql: "1",nullable: true),
                     Status = table.Column<bool>(defaultValueSql: "1", nullable: true),
                     CategoryId = table.Column<long>(nullable: false)
                 },

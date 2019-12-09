@@ -54,11 +54,16 @@ namespace ProjectTest.Models
         public string MetaDescription { set; get; }
 
         [Display(Name = "Lượt xem")]
-        public long ViewCount { set; get; } = 0;
+        public long ViewCount { set; get; } 
 
         [Display(Name = "Trạng thái")]
         [DefaultValue("true")]
+
         public bool Status { set; get; }
+        [Display(Name = "Ghi chú")]
+        [Column(TypeName = "ntext")]
+        public string Note { set; get; }
+
         [Display(Name ="Loại bài viết")]
         public long CategoryId { set; get; }
         [ForeignKey("CategoryId")]

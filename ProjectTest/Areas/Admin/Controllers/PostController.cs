@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using ProjectTest.DAO;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,10 +25,37 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/Post
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
-            var myBlogDbContext = _context.Posts.Include(p => p.CategoryPost);
-            return View(await myBlogDbContext.ToListAsync());
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var query = _context.Posts.Where(x => x.Title.Contains(searchString) || x.Title.Contains(searchString)).AsNoTracking().OrderBy(x => x.Id);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                ViewBag.search = searchString;
+                return View(model);
+            }
+            else
+            {
+                var query = _context.Posts.AsNoTracking().OrderBy(x => x.Id);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                return View(model);
+            }
+        }
+
+        public IActionResult Export()
+        {
+            var data = _context.Posts.OrderBy(x => x.Id).ToList();
+            var stream = new MemoryStream();
+            using (var pakage = new ExcelPackage(stream))
+            {
+                var sheet = pakage.Workbook.Worksheets.Add("Sheet 1");
+                sheet.Cells.LoadFromCollection(data, true);
+                pakage.Save();
+            }
+            stream.Position = 0;
+            var fileName = $"DanhSachPost_{DateTime.Now.ToString("yyyyMMddddHHmmss")}.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         // GET: Admin/Post/Details/5
@@ -57,10 +89,13 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ContentPost,MetaTitle,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,MetaKeyword,MetaDescription,ViewCount,Status,CategoryId")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,Title,ContentPost,MetaDescription,Status,Note,CategoryId")] Post post)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                post.MetaTitle = XuLyChuoi.GetMetaTitle(post.Title);
+                post.CreatedDate = DateTime.Now;
+                post.CreatedBy = HttpContext.Session.GetString("UserName");
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -91,7 +126,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Title,ContentPost,MetaTitle,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,MetaKeyword,MetaDescription,ViewCount,Status,CategoryId")] Post post)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Title,ContentPost,MetaDescription,Status,CategoryId")] Post post)
         {
             if (id != post.Id)
             {
@@ -102,6 +137,10 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
+                    post.MetaTitle = XuLyChuoi.GetMetaTitle(post.Title);
+                    post.ModifiedDate = DateTime.Now;
+                    post.ModifiedBy = HttpContext.Session.GetString("UserName");
+
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
