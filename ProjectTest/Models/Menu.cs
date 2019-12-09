@@ -22,9 +22,9 @@ namespace ProjectTest.Models
         public string DisplayOrder { set; get; }
 
 
-        [Display(Name = "Trạng thái")]
+        [Display(Name = "Hiển thị")]
         [Required(ErrorMessage = "Bạn phải nhập trường này")]
-        public bool? Status { set; get; }
+        public bool Status { set; get; }
 
         [Display(Name = "Loại Menu")]
         [Required(ErrorMessage = "Không để trống trường này")]

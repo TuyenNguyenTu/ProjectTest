@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ProjectTest.DAO;
 using ProjectTest.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectTest.Areas.Admin.Controllers
 {
@@ -20,10 +22,21 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/Menu
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
-            var myBlogDbContext = _context.Menus.Include(m => m.TypeMenu);
-            return View(await myBlogDbContext.ToListAsync());
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var query = _context.Menus.Where(x => x.Text.Contains(searchString)).AsNoTracking().OrderBy(x => x.Id);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                ViewBag.searchString = searchString;
+                return View(model);
+            }
+            else
+            {
+                var query = _context.Menus.AsNoTracking().OrderBy(x => x.Id);
+                var model = await PagingList.CreateAsync(query, 2, page);
+                return View(model);
+            }
         }
 
         // GET: Admin/Menu/Details/5
@@ -51,16 +64,16 @@ namespace ProjectTest.Areas.Admin.Controllers
             ViewData["TypeID"] = new SelectList(_context.TypeMenus, "Id", "Name");
             return View();
         }
-
         // POST: Admin/Menu/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Text,Link,DisplayOrder,Status,TypeID")] Menu menu)
+        public async Task<IActionResult> Create([Bind("Id,Text,DisplayOrder,Status,TypeID")] Menu menu)
         {
             if (ModelState.IsValid)
             {
+                menu.Link = "/" + XuLyChuoi.GetMetaTitle(menu.Text);
                 _context.Add(menu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -102,6 +115,7 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
+                    menu.Link = "/" + XuLyChuoi.GetMetaTitle(menu.Text);
                     _context.Update(menu);
                     await _context.SaveChangesAsync();
                 }
