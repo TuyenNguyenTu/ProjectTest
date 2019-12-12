@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,10 +19,12 @@ namespace ProjectTest.Areas.Admin.Controllers
     public class AboutMeController : BaseController
     {
         private readonly MyBlogDbContext _context;
+        private IHostingEnvironment hostingEnvironment;
 
-        public AboutMeController(MyBlogDbContext context)
+        public AboutMeController(MyBlogDbContext context, IHostingEnvironment _hostingEnvironment)
         {
             _context = context;
+            hostingEnvironment = _hostingEnvironment;
         }
 
         // GET: Admin/AboutMe
@@ -43,6 +46,29 @@ namespace ProjectTest.Areas.Admin.Controllers
             }
         }
 
+        [Route("upload_ckEditor")]
+
+        public IActionResult UploadCKEditor(IFormFile upload)
+        {
+            var fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + upload.FileName.ToString();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), hostingEnvironment.WebRootPath, "uploads_admin", fileName);
+            var stream = new FileStream(path, FileMode.Create);
+            upload.CopyToAsync(stream);
+            ViewBag.FileName = fileName;
+            return new JsonResult(new { path = "/uploads_admin/" + fileName });
+            
+        }
+
+
+        [Route("filebrowse")]
+        [HttpGet]
+        public IActionResult FileBrowse()
+        {
+            var direct = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), hostingEnvironment.WebRootPath, "uploads_admin"));
+            ViewBag.fileInfos = direct.GetFiles();
+            return View("FileBrowse");
+        }
+
         public IActionResult Export()
         {
             var data = _context.AboutMes.OrderBy(x => x.Id).ToList();
@@ -51,22 +77,6 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 var sheet = pakage.Workbook.Worksheets.Add("Sheet 1");
                 sheet.Cells.LoadFromCollection(data, true);
-                //sheet.Cells[1, 1].Value = "Họ";
-                //sheet.Cells[1, 2].Value = "Tên";
-                //sheet.Cells[1, 3].Value = "Tiêu đề";
-                //sheet.Cells[1, 4].Value = "Giới thiệu";
-                //sheet.Cells[1, 5].Value = "Ngày viết bài";
-                //sheet.Cells[1, 6].Value = "Người viết bài";
-                //int rowIndex = 2;
-                //foreach (var item in data)
-                //{
-                //    sheet.Cells[rowIndex, 1].Value = item.FirstName;
-                //    sheet.Cells[rowIndex, 2].Value = item.LastName;
-                //    sheet.Cells[rowIndex, 3].Value = item.Title;
-                //    sheet.Cells[rowIndex, 4].Value = item.Introduce;
-                //    sheet.Cells[rowIndex, 5].Value = item.CreatedDate;
-                //    sheet.Cells[rowIndex, 6].Value = item.CreatedBy;
-                //}
                 pakage.Save();
             }
             stream.Position = 0;

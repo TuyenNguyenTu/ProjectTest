@@ -5,7 +5,19 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="mdl-card mdl-shadow--2dp employer-form">
+@section jsFooter{
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('txtAreaIntro', {
+                height: 500,
+                filebrowserUploadUrl: '/upload_ckEditor',
+                filebrowserBrowseUrl: '/filebrowse',
+                
+            });
+        });
+    </script>
+}
+<div class="mdl-card mdl-shadow--2dp employer-form col-lg-12">
     <div class="mdl-card__title">
         <h2>Tạo mới thông tin cá nhân</h2>
         <div class="mdl-card__subtitle">Vui lòng nhập đầy đủ thông tin</div>
@@ -37,9 +49,10 @@
                         <label class="mdl-textfield__label" asp-for="Title"></label>
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
-                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <textarea class="mdl-textfield__input" type="text" asp-for="Introduce"></textarea>
-                        <label class="mdl-textfield__label" asp-for="Introduce"></label>
+                    <div class="">
+                        <label>Giới thiệu</label>
+                        <textarea type="text" asp-for="Introduce" id="txtAreaIntro"></textarea>
+
                         <span asp-validation-for="Introduce" class="text-danger"></span>
                     </div>
                     <br />
