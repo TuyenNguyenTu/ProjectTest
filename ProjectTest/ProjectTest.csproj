@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="wwwroot\admin\plugins\" />
+    <Folder Include="wwwroot\image_slide\" />
     <Folder Include="wwwroot\uploads_admin\" />
   </ItemGroup>
 

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ProjectTest.Areas.Admin.Models;
 using ProjectTest.Models;
 using ReflectionIT.Mvc.Paging;
 
@@ -15,10 +18,11 @@ namespace ProjectTest.Areas.Admin.Controllers
     public class SlideController : BaseController
     {
         private readonly MyBlogDbContext _context;
-
-        public SlideController(MyBlogDbContext context)
+        private readonly IHostingEnvironment hostingEnvironment;
+        public SlideController(MyBlogDbContext context, IHostingEnvironment _hostingEnvironment)
         {
             _context = context;
+            hostingEnvironment = _hostingEnvironment;
         }
 
         // GET: Admin/Slide
@@ -68,13 +72,31 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Image,DisplayOrder,Link,Description,Status")] Slide slide)
+        public async Task<IActionResult> Create([Bind("Id,Image,DisplayOrder,Link,Description,Status")] SlideCreateViewModel slide)
         {
             if (!ModelState.IsValid)
             {
                 slide.CreatedDate = DateTime.Now;
                 slide.CreatedBy = HttpContext.Session.GetString("UserName");
-                _context.Add(slide);
+                string uniqueFileName = null;
+                if (slide.Image != null)
+                {
+                    string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "image_slide");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + slide.Image.FileName;
+                    string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                    slide.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                Slide slide1 = new Slide
+                {
+                    Image = @"/image_slide/" + uniqueFileName,
+                    Link = slide.Link,
+                    Description = slide.Description,
+                    Status = slide.Status,
+                    CreatedDate = slide.CreatedDate,
+                    CreatedBy = slide.CreatedBy
+                    
+                };
+                _context.Add(slide1);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

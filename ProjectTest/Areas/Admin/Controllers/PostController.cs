@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
+using ProjectTest.Areas.Admin.Models;
 using ProjectTest.DAO;
 using ProjectTest.Models;
 using ReflectionIT.Mvc.Paging;
@@ -19,9 +21,11 @@ namespace ProjectTest.Areas.Admin.Controllers
     {
         private readonly MyBlogDbContext _context;
 
-        public PostController(MyBlogDbContext context)
+        private readonly IHostingEnvironment hostingEnvironment;
+        public PostController(MyBlogDbContext context, IHostingEnvironment en)
         {
             _context = context;
+            hostingEnvironment = en;
         }
 
   
@@ -90,16 +94,38 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ContentPost,MetaDescription,Status,Note,HinhAnh,CategoryId")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,Title,ContentPost,MetaDescription,Status,Note,HinhAnh,CategoryId")] PostCreateViewModel post)
         {
             if (!ModelState.IsValid)
             {
+                string uniqueFileName = null;
+                if (post.HinhAnh!=null){
+                    string upLoadFolder = Path.Combine(hostingEnvironment.WebRootPath, "uploads_admin");
+                   uniqueFileName = Guid.NewGuid().ToString() + "_" + post.HinhAnh.FileName;
+                  string filePath =  Path.Combine(upLoadFolder, uniqueFileName);
+                    post.HinhAnh.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
                 post.MetaTitle = XuLyChuoi.GetMetaTitle(post.Title);
                 post.CreatedDate = DateTime.Now;
                 post.CreatedBy = HttpContext.Session.GetString("UserName");
-                _context.Add(post);
+                Post post_1 = new Post
+                {
+                    Title = post.Title,
+                    ContentPost = post.ContentPost,
+                    MetaTitle = post.MetaTitle,
+                    CreatedDate = post.CreatedDate,
+                    CreatedBy = post.CreatedBy,
+                    Status = post.Status,
+                    CategoryId = post.CategoryId,
+                    MetaDescription = post.MetaDescription,
+                    Note = post.Note,
+                    HinhAnh = @"/uploads_admin/" + uniqueFileName
+                };
+
+                _context.Add(post_1);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = post_1.Id });
+               // return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.CategoryPosts, "Id", "CategoryName", post.CategoryId);
             return View(post);

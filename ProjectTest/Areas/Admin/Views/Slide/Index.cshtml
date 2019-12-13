@@ -45,10 +45,10 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td style="text-align:center"><img  src="@Html.DisplayFor(modelItem => item.Image)" alt="Hình ảnh"/></td>
+                    <td style="text-align:center"><img  src="@Html.DisplayFor(modelItem => item.Image)" alt="Hình ảnh" width="100" height="130"/></td>
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.DisplayOrder)</td>
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.Link)</td>
-                    <td style="text-align:center"><textarea>@Html.DisplayFor(modelItem => item.Description)</textarea></td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.Description)</td>
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.CreatedDate)</td>
                     <td style="text-align:center">@(item.Status == true ? "Hiển thị" : "Ẩn")</td>
                     <td style="text-align:center">

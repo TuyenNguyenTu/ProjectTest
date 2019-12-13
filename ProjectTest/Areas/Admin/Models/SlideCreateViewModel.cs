@@ -1,21 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectTest.Models
+namespace ProjectTest.Areas.Admin.Models
 {
-    public class Slide
+    public class SlideCreateViewModel
     {
-        [Key]
-        public long Id { get; set; }
-
-        [Display(Name ="Hình ảnh")]
-        [Column(TypeName ="nvarchar(250)")]
-        public string Image { get; set; }
+        [Display(Name = "Hình ảnh")]
+        [Column(TypeName = "nvarchar(250)")]
+        public IFormFile Image { get; set; }
 
         [Display(Name = "Thứ tự")]
         [Required]
@@ -42,7 +39,6 @@ namespace ProjectTest.Models
         public DateTime? ModifiedDate { set; get; }
 
         [Display(Name = "Hiển thị")]
-        [DefaultValue("true")]
         public bool Status { set; get; }
     }
 }
