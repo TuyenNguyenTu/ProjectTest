@@ -46,8 +46,8 @@ namespace ProjectTest.Areas.Admin.Controllers
             }
         }
 
-        [Route("upload_ckEditor")]
-
+        [Route("upload_ckeditor")]
+        [HttpPost]
         public IActionResult UploadCKEditor(IFormFile upload)
         {
             var fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + upload.FileName.ToString();

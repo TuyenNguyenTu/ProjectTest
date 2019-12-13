@@ -16,11 +16,15 @@
                 <form class="form form--basic">
                     <div class="mdl-grid">
                         <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--1-col-phone">
+                            <div class="col-md-6">
+                            <img src="@Html.DisplayFor(model=>model.HinhAnh)" width="180" height="200" />
+                            </div>
+
                         </div>
                         <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone form__article">
 
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-                                <input class="mdl-textfield__input">@Html.DisplayFor(model => model.Title)</input>
+                                <input class="mdl-textfield__input" value="@Html.DisplayFor(model => model.Title)"/>
                                 <label class="mdl-textfield__label" for="profile-floating-first-name">Tiêu đề</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">

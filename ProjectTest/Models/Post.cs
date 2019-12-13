@@ -64,6 +64,11 @@ namespace ProjectTest.Models
         [Column(TypeName = "ntext")]
         public string Note { set; get; }
 
+
+        [Display(Name = "HinhAnh")]
+        [Column(TypeName = "nvarchar(500)")]
+        public string HinhAnh { set; get; }
+
         [Display(Name ="Loại bài viết")]
         public long CategoryId { set; get; }
         [ForeignKey("CategoryId")]

@@ -35,6 +35,11 @@
                             <label class="mdl-textfield__label" asp-for="Title"></label>
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
+                        <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" asp-for="HinhAnh" />
+                            <label class="mdl-textfield__label" asp-for="HinhAnh"></label>
+                            <span asp-validation-for="HinhAnh" class="text-danger"></span>
+                        </div>
                         <div class="">
                             Nội dung bài viết:
                             <textarea class="txtAreaIntro" asp-for="ContentPost" id="txtContentPost"></textarea>

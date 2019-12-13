@@ -37,6 +37,7 @@
         <thead>
             <tr>
                 <th style="text-align:center">Tiêu đề </th>
+                <th style="text-align:center">Hình Ảnh </th>
                 <th style="text-align:center">Nội dung </th>
                 <th style="text-align:center">Ngày viết </th>
                 <th style="text-align:center">Người viết </th>
@@ -52,6 +53,7 @@
             {
                 <tr>
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td style="text-align:center"><img src="@Html.DisplayFor(modelItem => item.HinhAnh)"  width="120" height="100"/></td>
                     <td style="text-align:center"><textarea class="mdl-textfield__input">@Html.DisplayFor(modelItem=>item.ContentPost)</textarea></td>
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.CreatedDate)</td>
                     <td style="text-align:center">@Html.DisplayFor(modelItem => item.CreatedBy)</td>
@@ -77,93 +79,93 @@
 
 
 @*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContentPost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaKeyword)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetaDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryPost)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContentPost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MetaTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MetaKeyword)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MetaDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ViewCount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryPost.CategoryName)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContentPost)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MetaTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MetaKeyword)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MetaDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewCount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryPost)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>*@
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContentPost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MetaTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MetaKeyword)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MetaDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ViewCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryPost.CategoryName)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

@@ -24,6 +24,7 @@ namespace ProjectTest.Areas.Admin.Controllers
             _context = context;
         }
 
+  
         // GET: Admin/Post
         public async Task<IActionResult> Index(string searchString, int page = 1)
         {
@@ -89,7 +90,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ContentPost,MetaDescription,Status,Note,CategoryId")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,Title,ContentPost,MetaDescription,Status,Note,HinhAnh,CategoryId")] Post post)
         {
             if (!ModelState.IsValid)
             {
@@ -126,7 +127,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Title,ContentPost,MetaDescription,Status,CategoryId")] Post post)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Title,ContentPost,MetaDescription,HinhAnh,Status,CategoryId")] Post post)
         {
             if (id != post.Id)
             {

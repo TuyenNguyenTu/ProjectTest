@@ -8,10 +8,11 @@
 @section jsFooter{
     <script>
         $(document).ready(function () {
+        debugger
             CKEDITOR.replace('txtAreaIntro', {
                 height: 500,
-                filebrowserUploadUrl: '/upload_ckEditor',
-                filebrowserBrowseUrl: '/filebrowse',
+                filebrowserUploadUrl: '/upload_ckeditor',
+                filebrowserBrowseUrl: '/filebrowse'
                 
             });
         });
@@ -51,7 +52,7 @@
                     </div>
                     <div class="">
                         <label>Giới thiệu</label>
-                        <textarea type="text" asp-for="Introduce" id="txtAreaIntro"></textarea>
+                        <textarea  asp-for="Introduce" id="txtAreaIntro" style="color:red"></textarea>
 
                         <span asp-validation-for="Introduce" class="text-danger"></span>
                     </div>

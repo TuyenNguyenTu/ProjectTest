@@ -1,7 +1,6 @@
-﻿
-
-<html>
+﻿<html>
 <head>
+    <meta  charset="utf-8"/>
     <style>
         body {
             font-family: 'Segoe UI',Verdana,Arial, Helvetica, sans-serif;
@@ -47,7 +46,7 @@
         $(document).ready(function () {
             var funcNum =@(Context.Request.Query["CKEditorFuncNum"]+";")
                 $("#fileExplorer").on('click', 'img', function () {
-                    var fileUrl = '~/uploads_admin/' + $(this).attr('title');
+                    var fileUrl = 'uploads_admin/' + $(this).attr('title');
                     window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
                     window.close();
                 }).hover(function () {
@@ -61,7 +60,7 @@
     <div id="fileExplorer">
         @foreach (var item in ViewBag.fileInfos)
         {
-            <img src="~/uploads_admin/@item.Name" alt="thumb"title="@item.Name" width="180" height="120"/>
+            <img src="uploads_admin/@item.Name" alt="thumb"title="@item.Name" width="180" height="120"/>
             <br />
             <hr />
             }
