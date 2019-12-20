@@ -1,0 +1,67 @@
+﻿@model ReflectionIT.Mvc.Paging.IPagingList<ProjectTest.Models.Slide>
+@using ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="mdl-card__title">Danh sách Slide</h2>
+<p>
+    <a asp-action="Create"><i class="fas fa-plus-square"></i> Create New</a>
+</p>
+@using (Html.BeginForm("Index", "Slides", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-md-4">
+                <span style="color:white">Tìm kiếm: </span>
+                <input type="text" name="searchString" value="@ViewBag.searchString" />
+                <button type="submit" value="Tìm kiếm">Tìm kiếm</button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div class="col-md-12">
+    <nav aria-label="CategoryPost navigation">
+        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+    </nav>
+    <table class="mdl-data-table mdl-js-data-table">
+        <thead>
+            <tr>
+                <th style="text-align:center">Hình ảnh</th>
+                <th style="text-align:center">Thứ tự</th>
+                <th style="text-align:center">Link</th>
+                <th style="text-align:center">Mô tả</th>
+                <th style="text-align:center">Ngày tạo</th>
+                <th style="text-align:center">Trạng thái</th>
+                <th style="text-align:center">Action </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="Hình ảnh" width="100" height="130" /></td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.DisplayOrder)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.Link)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td style="text-align:center">@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                    <td style="text-align:center">@(item.Status == true ? "Hiển thị" : "Ẩn")</td>
+                    <td style="text-align:center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="label label--mini background-color--primary"><i class="fas fa-edit"></i> Edit</a> &nbsp;
+                        <a asp-action="Details" asp-route-id="@item.Id" class="label label--mini color--green" style="color:white"><i class="fas fa-info-circle"></i> Details</a> &nbsp;
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="label label--mini background-color--secondary" style="color:white"> <i class="far fa-trash-alt"></i> Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav aria-label="Suppliers navigation example">
+        <vc:pager pagin-list="@Model"></vc:pager>
+    </nav>
+    <br />
+</div>

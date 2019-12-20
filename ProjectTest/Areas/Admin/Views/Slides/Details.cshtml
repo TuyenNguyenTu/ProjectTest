@@ -1,0 +1,50 @@
+﻿@model ProjectTest.Models.Slide
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
+    <div class="">
+        <div class="mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+                <h2>Thông tin chi tiết</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <form class="form form--basic">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--1-col-phone">
+                            <div class="profile-image color--smooth-gray profile-image--round">
+                                <img src="@Html.DisplayFor(model=>model.Image)" />
+                            </div>
+                        </div>
+                        <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone form__article">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                <input class="mdl-textfield__input" type="text" value="@Html.DisplayFor(model=>model.Image)" />
+                                <label class="mdl-textfield__label" for="profile-floating-first-name">Hình ảnh</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                <textarea class="mdl-textfield__input">@Html.DisplayFor(model=>model.Description)</textarea>
+                                <label class="mdl-textfield__label" for="profile-floating-first-name">Mô tả</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                <input class="mdl-textfield__input" type="text" value="@Html.DisplayFor(model=>model.CreatedDate)" />
+                                <label class="mdl-textfield__label" for="profile-floating-first-name">Ngày tạo</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                <label class="mdl-checkbox__label">Hiển thị</label>
+                                @Html.DisplayFor(model => model.Status)
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal"><i class="fas fa-edit"></i> Edit</a> &nbsp; &nbsp;
+                    <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

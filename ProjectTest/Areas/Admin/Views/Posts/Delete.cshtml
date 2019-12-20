@@ -1,0 +1,133 @@
+﻿@model ProjectTest.Models.Post
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="mdl-cell mdl-cell--5-col-desktop mdl-cell--5-col-tablet mdl-cell--4-col-phone">
+    <div class="mdl-card mdl-shadow--2dp employer-form">
+        <div class="mdl-card__title">
+            <h2>Xóa bản ghi</h2>
+            <div class="mdl-card__subtitle" style="color:white">Bạn có chắc chắn muốn xóa bản ghi này?</div>
+        </div>
+    </div>
+    <div class="mdl-card__supporting-text">
+        <form class="form form--basic">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone form__article">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                        <input class="mdl-textfield__input" value="@Html.DisplayFor(model=>model.Title)" />
+                        <label class="mdl-textfield__label" for="profile-floating-first-name">Tên</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                        <textarea class="mdl-textfield__input" value="">@Html.DisplayFor(model=>model.ContentPost)</textarea>
+                        <label class="mdl-textfield__label" for="profile-floating-first-name">Tên</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                        Loại bài viết:  @Html.DisplayFor(model => model.CategoryPost.CategoryName)
+
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                        <label class="mdl-checkbox__label">Hiển thị</label>
+                        @Html.DisplayFor(model => model.Status)
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-red" /> |
+        <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+    </form>
+</div>
+@*<h2>Delete</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Post</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ContentPost)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ContentPost)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MetaTitle)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MetaTitle)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedBy)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ModifiedDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ModifiedBy)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MetaKeyword)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MetaKeyword)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MetaDescription)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MetaDescription)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ViewCount)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ViewCount)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryPost)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CategoryPost.CategoryName)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>*@

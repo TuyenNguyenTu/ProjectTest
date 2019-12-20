@@ -17,19 +17,17 @@ using ReflectionIT.Mvc.Paging;
 namespace ProjectTest.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PostController : BaseController
+    public class PostsController : BaseController
     {
         private readonly MyBlogDbContext _context;
-
         private readonly IHostingEnvironment hostingEnvironment;
-        public PostController(MyBlogDbContext context, IHostingEnvironment en)
+        public PostsController(MyBlogDbContext context, IHostingEnvironment en)
         {
             _context = context;
             hostingEnvironment = en;
         }
 
-  
-        // GET: Admin/Post
+        // GET: Admin/Posts
         public async Task<IActionResult> Index(string searchString, int page = 1)
         {
 
@@ -63,7 +61,8 @@ namespace ProjectTest.Areas.Admin.Controllers
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
-        // GET: Admin/Post/Details/5
+
+        // GET: Admin/Posts/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -82,29 +81,23 @@ namespace ProjectTest.Areas.Admin.Controllers
             return View(post);
         }
 
-        // GET: Admin/Post/Create
+        // GET: Admin/Posts/Create
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.CategoryPosts, "Id", "CategoryName");
             return View();
         }
 
-        // POST: Admin/Post/Create
+        // POST: Admin/Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,ContentPost,MetaDescription,Status,Note,HinhAnh,CategoryId")] PostCreateViewModel post)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                string uniqueFileName = null;
-                if (post.HinhAnh!=null){
-                    string upLoadFolder = Path.Combine(hostingEnvironment.WebRootPath, "uploads_admin");
-                   uniqueFileName = Guid.NewGuid().ToString() + "_" + post.HinhAnh.FileName;
-                  string filePath =  Path.Combine(upLoadFolder, uniqueFileName);
-                    post.HinhAnh.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
+                string uniqueFileName = ProcessUploadedFileC(post);
                 post.MetaTitle = XuLyChuoi.GetMetaTitle(post.Title);
                 post.CreatedDate = DateTime.Now;
                 post.CreatedBy = HttpContext.Session.GetString("UserName");
@@ -120,18 +113,34 @@ namespace ProjectTest.Areas.Admin.Controllers
                     MetaDescription = post.MetaDescription,
                     Note = post.Note,
                     HinhAnh = @"/uploads_admin/" + uniqueFileName
+
                 };
 
                 _context.Add(post_1);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", new { id = post_1.Id });
-               // return RedirectToAction(nameof(Index));
+                // return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.CategoryPosts, "Id", "CategoryName", post.CategoryId);
             return View(post);
         }
 
-        // GET: Admin/Post/Edit/5
+
+        private string ProcessUploadedFileC(PostCreateViewModel post)
+        {
+            string uniqueFileName = null;
+            if (post.HinhAnh != null)
+            {
+                string upLoadFolder = Path.Combine(hostingEnvironment.WebRootPath, "uploads_admin");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + post.HinhAnh.FileName;
+                string filePath = Path.Combine(upLoadFolder, uniqueFileName);
+                post.HinhAnh.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
+            return uniqueFileName;
+        }
+
+
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -140,55 +149,76 @@ namespace ProjectTest.Areas.Admin.Controllers
             }
 
             var post = await _context.Posts.FindAsync(id);
+            PostEditViewModel postEditViewModel = new PostEditViewModel
+            {
+                Id = post.Id,
+                Title = post.Title,
+                ContentPost = post.ContentPost,
+                MetaDescription = post.MetaDescription,
+                CategoryPost = post.CategoryPost,
+                ExistingPhotoPath = post.HinhAnh,
+                Status = post.Status,
+                CategoryId = post.CategoryId
+            };
             if (post == null)
             {
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.CategoryPosts, "Id", "CategoryName", post.CategoryId);
-            return View(post);
+            return View(postEditViewModel);
         }
 
-        // POST: Admin/Post/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Title,ContentPost,MetaDescription,HinhAnh,Status,CategoryId")] Post post)
+        public async Task<IActionResult> Edit(PostEditViewModel post)
         {
-            if (id != post.Id)
-            {
-                return NotFound();
-            }
+
 
             if (ModelState.IsValid)
             {
-                try
+                Post post1 = _context.Posts.Find(post.Id);
+                post1.Title = post.Title;
+                post1.ContentPost = post.ContentPost;
+                post1.ModifiedBy = HttpContext.Session.GetString("UserName");
+                post1.ModifiedDate = DateTime.Now;
+                post1.Status = post.Status;
+                post1.CategoryPost = post.CategoryPost;
+                post1.CategoryId = post.CategoryId;
+                if (post.HinhAnh != null)
                 {
-                    post.MetaTitle = XuLyChuoi.GetMetaTitle(post.Title);
-                    post.ModifiedDate = DateTime.Now;
-                    post.ModifiedBy = HttpContext.Session.GetString("UserName");
+                    if (post.ExistingPhotoPath != null)
+                    {
+                        string filePath = Path.Combine(hostingEnvironment.WebRootPath, "uploads_admin", post.ExistingPhotoPath);
+                        System.IO.File.Delete(filePath);
+                    }
+                    post1.HinhAnh = @"/uploads_admin/" + ProcessUploadedFile(post);
+                }
+                post.MetaTitle = XuLyChuoi.GetMetaTitle(post.Title);
 
-                    _context.Update(post);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PostExists(post.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+                _context.Update(post1);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                // return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.CategoryPosts, "Id", "CategoryName", post.CategoryId);
             return View(post);
-        }
 
-        // GET: Admin/Post/Delete/5
+        }
+        private string ProcessUploadedFile(PostEditViewModel post)
+        {
+            string uniqueFileName = null;
+            if (post.HinhAnh != null)
+            {
+                string upLoadFolder = Path.Combine(hostingEnvironment.WebRootPath, "uploads_admin");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + post.HinhAnh.FileName;
+                string filePath = Path.Combine(upLoadFolder, uniqueFileName);
+                post.HinhAnh.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
+            return uniqueFileName;
+        }
+        // GET: Admin/Posts/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -207,7 +237,7 @@ namespace ProjectTest.Areas.Admin.Controllers
             return View(post);
         }
 
-        // POST: Admin/Post/Delete/5
+        // POST: Admin/Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)

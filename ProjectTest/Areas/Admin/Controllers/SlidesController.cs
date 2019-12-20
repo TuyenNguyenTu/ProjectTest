@@ -15,18 +15,19 @@ using ReflectionIT.Mvc.Paging;
 namespace ProjectTest.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class SlideController : BaseController
+    public class SlidesController : Controller
     {
         private readonly MyBlogDbContext _context;
         private readonly IHostingEnvironment hostingEnvironment;
-        public SlideController(MyBlogDbContext context, IHostingEnvironment _hostingEnvironment)
+
+        public SlidesController(MyBlogDbContext context, IHostingEnvironment _hostingEnvironment)
         {
             _context = context;
             hostingEnvironment = _hostingEnvironment;
         }
 
-        // GET: Admin/Slide
-        public async Task<IActionResult> Index(string searchString, int page =1)
+        // GET: Admin/Slides
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -43,7 +44,7 @@ namespace ProjectTest.Areas.Admin.Controllers
             }
         }
 
-        // GET: Admin/Slide/Details/5
+        // GET: Admin/Slides/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -61,15 +62,13 @@ namespace ProjectTest.Areas.Admin.Controllers
             return View(slide);
         }
 
-        // GET: Admin/Slide/Create
+        // GET: Admin/Slides/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Slide/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Image,DisplayOrder,Link,Description,Status")] SlideCreateViewModel slide)
@@ -94,7 +93,7 @@ namespace ProjectTest.Areas.Admin.Controllers
                     Status = slide.Status,
                     CreatedDate = slide.CreatedDate,
                     CreatedBy = slide.CreatedBy
-                    
+
                 };
                 _context.Add(slide1);
                 await _context.SaveChangesAsync();
@@ -103,22 +102,7 @@ namespace ProjectTest.Areas.Admin.Controllers
             return View(slide);
         }
 
-
-        private string ProcessUploadedFile(SlideEditViewModel slide)
-        {
-            string uniqueFileName = null;
-            if (slide.Image != null)
-            {
-                string upLoadFolder = Path.Combine(hostingEnvironment.WebRootPath, "image_slide");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + slide.Image.FileName;
-                string filePath = Path.Combine(upLoadFolder, uniqueFileName);
-                slide.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-            }
-
-            return uniqueFileName;
-        }
-
-        // GET: Admin/Slide/Edit/5
+        // GET: Admin/Slides/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -161,11 +145,11 @@ namespace ProjectTest.Areas.Admin.Controllers
                     slide1.Link = slide.Link;
                     if (slide.Image != null)
                     {
-                        //if (slide.ExistImagePath != null)
-                        //{
-                        //    string filePath = Path.Combine(hostingEnvironment.WebRootPath, "image_slide", slide.ExistImagePath);
-                        //    System.IO.File.Delete(filePath);
-                        //}
+                        if (slide.ExistImagePath != null)
+                        {
+                            string filePath = Path.Combine(hostingEnvironment.WebRootPath, "image_slide", slide.ExistImagePath);
+                            System.IO.File.Delete(filePath);
+                        }
                         slide1.Image = @"/image_slide/" + ProcessUploadedFile(slide);
                     }
                     _context.Update(slide1);
@@ -187,7 +171,7 @@ namespace ProjectTest.Areas.Admin.Controllers
             return View(slide);
         }
 
-        // GET: Admin/Slide/Delete/5
+        // GET: Admin/Slides/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -205,7 +189,7 @@ namespace ProjectTest.Areas.Admin.Controllers
             return View(slide);
         }
 
-        // POST: Admin/Slide/Delete/5
+        // POST: Admin/Slides/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
@@ -219,6 +203,21 @@ namespace ProjectTest.Areas.Admin.Controllers
         private bool SlideExists(long id)
         {
             return _context.Slides.Any(e => e.Id == id);
+        }
+
+
+        private string ProcessUploadedFile(SlideEditViewModel slide)
+        {
+            string uniqueFileName = null;
+            if (slide.Image != null)
+            {
+                string upLoadFolder = Path.Combine(hostingEnvironment.WebRootPath, "image_slide");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + slide.Image.FileName;
+                string filePath = Path.Combine(upLoadFolder, uniqueFileName);
+                slide.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
+            return uniqueFileName;
         }
     }
 }

@@ -1,0 +1,76 @@
+﻿@model ProjectTest.Areas.Admin.Models.SlideCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section jsFooter{
+    <script>
+        $(document).ready(function () {
+            $(document).ready(function () {
+            $('.custom-file-input').on('change', function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        })
+        })
+    </script>
+
+}
+<hr />
+<div class="mdl-card mdl-shadow--2dp employer-form">
+    <div class="mdl-card__title">
+        <h2>Tạo mới Slide</h2>
+        <div class="mdl-card__subtitle">Vui lòng nhập đầy đủ thông tin</div>
+    </div>
+
+    <div class="mdl-card__supporting-text">
+        <form class="form" asp-action="Create" enctype="multipart/form-data">
+            <div class="form__article">
+                <h3>Dữ liệu </h3>
+                <div class="mdl-grid">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div style="width:100%">
+                        Chọn hình ảnh <br />
+                        <div class="col-sm-10">
+                            <div class="custom-file">
+                                <input class="form-control custom-file-input" type="file" asp-for="Image" id="Image" name="Image" />
+                                <label class="custom-file-label">Choose File...</label>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <textarea class="mdl-textfield__input" type="text" asp-for="DisplayOrder"></textarea>
+                        <label class="mdl-textfield__label" asp-for="DisplayOrder"></label>
+                        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" asp-for="Link" />
+                        <label class="mdl-textfield__label" asp-for="Link"></label>
+                        <span asp-validation-for="Link" class="text-danger"></span>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <textarea class="mdl-textfield__input" type="text" asp-for="Description"></textarea>
+                        <label class="mdl-textfield__label" asp-for="Description"></label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-teal" />
+                </div>
+            </div>
+        </form>
+        <div>
+            <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+        </div>
+    </div>
+</div>
