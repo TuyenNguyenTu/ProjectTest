@@ -13,7 +13,7 @@
             $('.custom-file-input').on('change', function () {
                 var fileName = $(this).val().split("\\").pop();
                 $(this).next('.custom-file-label').html(fileName);
-                console.log(fileName)
+                console.log(fileName);
             });
         });
     </script>
@@ -25,9 +25,11 @@
     <div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
             <h5 class="mdl-card__title-text text-color--white">Chỉnh sửa Slide</h5>
-            <img src="@Model.ExistImagePath" alt="Hello" />
+            
         </div>
         <div class="mdl-card__supporting-text">
+            <img src="@Model.ExistImagePath"  id="my_image"  alt="Hello" width="150" height="200" />
+            <br />
             <form class="form form--basic" asp-action="Edit" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />

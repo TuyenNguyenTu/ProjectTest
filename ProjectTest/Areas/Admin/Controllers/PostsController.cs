@@ -95,7 +95,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,ContentPost,MetaDescription,Status,Note,HinhAnh,CategoryId")] PostCreateViewModel post)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 string uniqueFileName = ProcessUploadedFileC(post);
                 post.MetaTitle = XuLyChuoi.GetMetaTitle(post.Title);

@@ -31,8 +31,11 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeButtons = 'Underline,Subscript,Superscript';
     CKEDITOR.config.entities = false;
 	// Set the most common block elements.
-	config.format_tags = 'p;h1;h2;h3;pre';
-
+    config.format_tags = 'p;h1;h2;h3;pre';
+    config.syntaxhighlight_lang = 'csharp';
+    config.syntaxhighlight_hideControls = true;
+    config.language = 'vi';
+    config.htmlEncodeOutput = false;
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 };
