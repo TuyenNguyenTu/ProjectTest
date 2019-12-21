@@ -10,6 +10,9 @@
 @section jsFooter{
     <script>
         $(document).ready(function () {
+               CKEDITOR.replace('txtDescription', {
+                customConfig: '/ckeditor/config.js',
+            });
             $('.custom-file-input').on('change', function () {
                 var fileName = $(this).val().split("\\").pop();
                 $(this).next('.custom-file-label').html(fileName);
@@ -41,7 +44,7 @@
                 </div>
                 <div class="mdl-textfield mdl-js-textfield full-size">
                     <label asp-for="Description" class="mdl-textfield__label"></label>
-                    <textarea asp-for="Description" class="mdl-textfield__input" style="color:white"></textarea>
+                    <textarea asp-for="Description" class="mdl-textfield__input" style="color:white" id="txtDescription"></textarea>
                     <span asp-validation-for="Description" class="text-danger" style="color:white"></span>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield full-size">

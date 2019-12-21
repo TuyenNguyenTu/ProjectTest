@@ -36,6 +36,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.syntaxhighlight_hideControls = true;
     config.language = 'vi';
     config.htmlEncodeOutput = false;
+    config.filebrowserImageUploadUrl = '/DataImage';
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 };

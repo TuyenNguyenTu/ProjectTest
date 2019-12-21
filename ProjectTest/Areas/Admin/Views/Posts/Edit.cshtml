@@ -8,6 +8,9 @@
 @section jsFooter{
     <script>
         $(document).ready(function () {
+            CKEDITOR.replace('txtEditContentPost', {
+                customConfig: '/ckeditor/config.js',
+            });
             $('.custom-file-input').on('change', function () {
                 var fileName = $(this).val().split("\\").pop();
                 $(this).next('.custom-file-label').html(fileName);
@@ -28,17 +31,12 @@
                 <span asp-validation-for="Title" class="text-danger" style="color:white"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContentPost" class="control-label" style="color:white"></label>
-                <input asp-for="ContentPost" class="form-control" />
-                <span asp-validation-for="ContentPost" class="text-danger" style="color:white"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MetaTitle" class="control-label" style="color:white"></label>
-                <input asp-for="MetaTitle" class="form-control" />
-                <span asp-validation-for="MetaTitle" class="text-danger" style="color:white"></span>
-            </div>
 
+                Nội dung bài viết:
+                <textarea class="txtAreaIntro" asp-for="ContentPost" id="txtEditContentPost"></textarea>
 
+                <span asp-validation-for="ContentPost" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="MetaDescription" class="control-label" style="color:white"></label>
                 <input asp-for="MetaDescription" class="form-control" />
@@ -48,7 +46,7 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                        <input asp-for="Status" /> Hiển thị
                     </label>
                 </div>
             </div>

@@ -38,7 +38,7 @@ namespace ProjectTest.Areas.Admin.Models
         [Display(Name = "Trạng thái")]
         public bool Status { set; get; }
 
-        [Display(Name = "Ghi chú")]
+        [Display(Name = "Ghi chú hình ảnh")]
         [Column(TypeName = "ntext")]
         public string Note { set; get; }
 

@@ -27,8 +27,8 @@
                                 <label class="mdl-textfield__label" for="profile-floating-first-name">Tiêu đề</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-                                <textarea class="mdl-textfield__input">@Html.DisplayFor(model=>model.ContentPost)</textarea>
-                                <label class="mdl-textfield__label" for="profile-floating-first-name">Tên</label>
+                                <textarea class="mdl-textfield__input" rows="5" cols="50" id="txtResult">@Html.DisplayFor(model=>model.ContentPost)</textarea>
+                                <label class="mdl-textfield__label" for="profile-floating-first-name">Nội dung</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
                                 <input class="mdl-textfield__input" type="text" value="@Html.DisplayFor(model=>model.CreatedBy)" />

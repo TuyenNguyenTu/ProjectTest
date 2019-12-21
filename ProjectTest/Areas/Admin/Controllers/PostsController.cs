@@ -61,6 +61,21 @@ namespace ProjectTest.Areas.Admin.Controllers
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
+        [Route("upload_ckeditor")]
+        [HttpPost]
+        public IActionResult UploadCKEditor(IFormFile iformFile)
+        {
+
+            var fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + iformFile.FileName;
+            var path = Path.Combine(Directory.GetCurrentDirectory(),hostingEnvironment.WebRootPath,"DataImage",fileName);
+            var stream = new FileStream(path, FileMode.Create);
+            iformFile.CopyToAsync(stream);
+
+            return new JsonResult(new {
+                uploaded=1,
+                fileName = iformFile.FileName,
+                url = "/DataImage/"+ fileName });
+        }
 
         // GET: Admin/Posts/Details/5
         public async Task<IActionResult> Details(long? id)
@@ -172,8 +187,6 @@ namespace ProjectTest.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(PostEditViewModel post)
         {
-
-
             if (ModelState.IsValid)
             {
                 Post post1 = _context.Posts.Find(post.Id);
