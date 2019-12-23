@@ -139,9 +139,12 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
-                    categoryPost.MetaTitle = XuLyChuoi.GetMetaTitle(categoryPost.CategoryName);
-                    categoryPost.ModifiedDate = DateTime.Now;
-                    _context.Update(categoryPost);
+                    CategoryPost category = _context.CategoryPosts.Find(categoryPost.Id);
+                    category.CategoryName = categoryPost.CategoryName;
+
+                    category.MetaTitle = XuLyChuoi.GetMetaTitle(categoryPost.CategoryName);
+                    category.ModifiedDate = DateTime.Now;                  
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

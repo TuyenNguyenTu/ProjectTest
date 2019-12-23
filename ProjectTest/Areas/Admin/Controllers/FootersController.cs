@@ -111,7 +111,10 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(footer);
+                    Footer footer1 = _context.Footers.Find(id);
+                    footer1.Contents = footer.Contents;
+                    footer1.Status = footer.Status;
+                    _context.Update(footer1);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

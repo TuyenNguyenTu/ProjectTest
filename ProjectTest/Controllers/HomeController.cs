@@ -8,13 +8,24 @@ using ProjectTest.Models;
 
 namespace ProjectTest.Controllers
 {
+
     public class HomeController : Controller
     {
+        private readonly MyBlogDbContext context;
+        public HomeController(MyBlogDbContext _context)
+        {
+            context = _context;
+        }
         public IActionResult Index()
         {
             return View();
         }
 
+        public IActionResult MainMenu()
+        {
+            ViewBag.Hello = "Hello";
+            return View();
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -38,6 +49,10 @@ namespace ProjectTest.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult TestView()
+        {
+            return View();
         }
     }
 }

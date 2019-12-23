@@ -4,9 +4,55 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+@section jsFooter{
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('txtEditContents', {
+                customConfig: '/ckeditor/config.js',
+            });
+        });
+    </script>
+}
+<hr />
+
+<div class="mdl-card__title">
+    <h5 class="mdl-card__title-text text-color--white">Chỉnh sửa Footer</h5>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger" style="color:white"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+
+                <label style="color:white">Nội dung: </label>
+                <textarea class="txtAreaIntro" asp-for="Contents" id="txtEditContents"></textarea>
+
+                <span asp-validation-for="Contents" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Status" />  <label style="color:white">Hiển thị </label>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-light-blue" />
+            </div>
+        </form>
+        <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+    </div>
+</div>
 
 
-<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
+
+
+
+
+
+@*<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
     <div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
             <h5 class="mdl-card__title-text text-color--white">Chỉnh sửa Footer</h5>
@@ -17,7 +63,7 @@
                 <input type="hidden" asp-for="Id" />
                 <div class="mdl-textfield mdl-js-textfield full-size">
                     <label asp-for="Contents" class="mdl-textfield__label"></label>
-                    <textarea asp-for="Contents" class="mdl-textfield__input" style="color:white"></textarea>
+                    <textarea asp-for="Contents" class="mdl-textfield__input" style="color:white" id="txtEditContents"></textarea>
                     <span asp-validation-for="Contents" class="text-danger" style="color:white"></span>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield full-size">
@@ -32,4 +78,4 @@
             <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
         </div>
     </div>
-</div>
+</div>*@

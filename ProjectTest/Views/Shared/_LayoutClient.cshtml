@@ -1,0 +1,149 @@
+﻿<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Express News a Entertainment Category Flat Bootstarp responsive Website Template | Sports :: w3layouts</title>
+    <link href="~/clients/css/bootstrap.css" rel="stylesheet" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/clients/js/jquery.min.js"></script>
+    <!-- Custom Theme files -->
+    <link href="~/clients/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Express News Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- for bootstrap working -->
+    <script src="~/clients/js/bootstrap.js"></script>
+    <!-- //for bootstrap working -->
+    <!-- web-fonts -->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <script src="~/clients/js/responsiveslides.min.js"></script>
+    <script src="https://kit.fontawesome.com/9edaadcf0e.js" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true,
+            });
+        });
+    </script>
+    <script type="text/javascript" src="~/clients/js/move-top.js"></script>
+    <script type="text/javascript" src="~/clients/js/easing.js"></script>
+    <!--/script-->
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 900);
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- header-section-starts-here -->
+    <div class="header">
+        <div class="header-top">
+            <div class="wrap">
+                <div class="top-menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="num">
+                    <p> Call us : 032 2352 782</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <div class="header-bottom">
+            <div class="logo text-center">
+                <a  asp-action="Index" asp-controller="Home"><img src="~/image_slide/logo.jpg" /></a>
+            </div>
+            <div class="navigation">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="wrap">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+
+                        </div>
+                        <!--/.navbar-header-->
+
+                     @*<partial name="MainMenu" />*@
+                        @await Component.InvokeAsync("MainMenu")
+                    </div>
+                    <!--/.navbar-collapse-->
+                    <!--/.navbar-->
+            </div>
+            </nav>
+        </div>
+    </div>
+    <!-- header-section-ends-here -->
+    <div class="wrap">
+        <div class="move-text">
+            <div class="breaking_news">
+                <h2>Sờ lô gần</h2>
+            </div>
+            <div class="marquee">
+                <div class="marquee1"><a class="breaking" href="single.html">Nguyễn Tự Tuyên ----------- 1621050431 -----------</a></div>
+                <div class="marquee2"><a class="breaking" href="single.html">Lê Văn Việt ----------- 1621050022 ----------- Lương Ngọc Nam ----------- 1621050364</a></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <script src="~/clients/js/jquery.marquee.min.js"></script>
+            <script>
+			  $('.marquee').marquee({ pauseOnHover: true });
+            </script>
+        </div>
+    </div>
+    <!-- content-section-starts-here -->
+    <div class="main-body">
+        <div class="wrap">
+            <div class="col-lg-8" >
+                @RenderSection("slide", required: false)
+            </div>
+                @RenderBody();
+            </div>
+        </div>
+    <!-- content-section-ends-here -->
+    <!-- footer-section-starts-here -->
+
+
+        @await Component.InvokeAsync("FootersReal")
+    <!-- footer-section-ends-here -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+            var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+            };
+            */
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+    </script>
+    <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <!---->
+</body>
+</html>

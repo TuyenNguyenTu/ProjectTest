@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="4.5.2" />
     <PackageReference Include="Korzh.EasyQuery.Linq" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
@@ -19,9 +20,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="wwwroot\admin\plugins\" />
-    <Folder Include="wwwroot\image_slide\" />
     <Folder Include="wwwroot\DataImage\" />
-    <Folder Include="wwwroot\clients\" />
     <Folder Include="wwwroot\uploads_admin\" />
   </ItemGroup>
 
