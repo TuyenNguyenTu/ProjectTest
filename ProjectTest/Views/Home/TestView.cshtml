@@ -1,6 +1,11 @@
 ﻿@{
     ViewData["Title"] = "TestView";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
+    var listPosts = (IEnumerable<Post>)ViewBag.ListPost;
+    var hotPosts = (IEnumerable<Post>)ViewBag.HotPosts;
+    var listImage = (IEnumerable<Post>)ViewBag.ListImage;
+    var listBongDa = (IEnumerable<Post>)ViewBag.ListBongDa;
+    var listMotoGp = (IEnumerable<Post>)ViewBag.MotoGP;
 }
 
 
@@ -35,219 +40,43 @@
     </div>
 }
 
+
 <div class="col-md-8 content-left">
-    <br />
-    <br />
-    <div class="life-style">
-        <header>
-            <h3 class="title-head">Life Style</h3>
-        </header>
-        <div class="life-style-grids">
-            <div class="life-style-left-grid">
-                <a href="single.html"><img src="images/l1.jpg" alt="" /></a>
-                <a class="title" href="single.html">It is a long established fact that a reader will be distracted.</a>
-            </div>
-            <div class="life-style-right-grid">
-                <a href="single.html"><img src="images/l2.jpg" alt="" /></a>
-                <a class="title" href="single.html">There are many variations of passages of Lorem Ipsum available.</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="life-style-grids">
-            <div class="life-style-left-grid">
-                <a href="single.html"><img src="images/l3.jpg" alt="" /></a>
-                <a class="title" href="single.html">Contrary to popular belief, Lorem Ipsum is not simply random text.</a>
-            </div>
-            <div class="life-style-right-grid">
-                <a href="single.html"><img src="images/l4.jpg" alt="" /></a>
-                <a class="title" href="single.html">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="sports-top">
-        <div class="s-grid-left">
-            <div class="cricket">
-                <header>
-                    <h3 class="title-head">Business</h3>
-                </header>
-                <div class="c-sports-main">
-                    <div class="c-image">
-                        <a href="single.html"><img src="images/bus1.jpg" alt="" /></a>
-                    </div>
-                    <div class="c-text">
-                        <h6>Lorem Ipsum</h6>
-                        <a class="power" href="single.html">It is a long established fact that a reader</a>
-                        <p class="date">On Feb 25, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/bus2.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>Lorem Ipsum</h6>
-                        <a class="power" href="single.html">It is a long established fact that a reader</a>
-                        <p class="date">On Mar 21, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/bus3.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>Lorem Ipsum</h6>
-                        <a class="power" href="single.html">It is a long established fact that a reader</a>
-                        <p class="date">On Jan 25, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/bus4.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>Lorem Ipsum</h6>
-                        <a class="power" href="single.html">It is a long established fact that a reader</a>
-                        <p class="date">On Jul 19, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-        <div class="s-grid-right">
-            <div class="cricket">
-                <header>
-                    <h3 class="title-popular">Technology</h3>
-                </header>
-                <div class="c-sports-main">
-                    <div class="c-image">
-                        <a href="single.html"><img src="images/tec1.jpg" alt="" /></a>
-                    </div>
-                    <div class="c-text">
-                        <h6>Lorem Ipsum</h6>
-                        <a class="power" href="single.html">It is a long established fact that a reader</a>
-                        <p class="date">On Apr 22, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/tec2.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>Lorem Ipsum</h6>
-                        <a class="power" href="single.html">It is a long established fact that a reader</a>
-                        <p class="date">On Jan 19, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/tec3.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>Lorem Ipsum</h6>
-                        <a class="power" href="single.html">It is a long established fact that a reader</a>
-                        <p class="date">On Jun 25, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/tec4.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>Lorem Ipsum</h6>
-                        <a class="power" href="single.html">It is a long established fact that a reader</a>
-                        <p class="date">On Jul 19, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
     <div class="articles sports">
         <header>
-            <h3 class="title-head">Sports</h3>
+            <h3 class="title-head">Tin nổi bật</h3>
         </header>
-        <div class="article">
-            <div class="article-left">
-                <a href="single.html"><img src="images/sport1.jpg"></a>
-            </div>
-            <div class="article-right">
-                <div class="article-title">
-                    <p>On Feb 25, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>104 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>52</a></p>
-                    <a class="title" href="single.html"> The section of the mass media industry that focuses on presenting</a>
+        @foreach (var item in hotPosts)
+        {
+            var url = "/chi-tiet/" + item.MetaTitle;
+            <div class="article">
+                <div class="article-left">
+                    <a href="@url"><img src="@item.HinhAnh" alt="@item.Note"></a>
                 </div>
-                <div class="article-text">
-                    <p>The standard chunk of Lorem Ipsum used since the 1500s. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" exact original.....</p>
-                    <a href="single.html"><img src="images/more.png" alt="" /></a>
-                    <div class="clearfix"></div>
+                <div class="article-right">
+                    <div class="article-title">
+                        <p>On Feb 25, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>@item.ViewCount </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>52</a></p>
+                        <a class="title" href="@url">@item.Title</a>
+                    </div>
+                    <div class="article-text">
+                        <p>@item.MetaDescription.....</p>
+                        <a href="@url">
+                            <img src="~/uploads_admin/more.png" />
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="article">
-            <div class="article-left">
-                <a href="single.html"><img src="images/sport2.jpg"></a>
-            </div>
-            <div class="article-right">
-                <div class="article-title">
-                    <p>On Jun 21, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>181 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>89</a></p>
-                    <a class="title" href="single.html">There are many variations that focuses on presenting</a>
-                </div>
-                <div class="article-text">
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.....</p>
-                    <a href="single.html"><img src="images/more.png" alt="" /></a>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="article">
-            <div class="article-left">
-                <a href="single.html"><img src="images/sport3.jpg"></a>
-            </div>
-            <div class="article-right">
-                <div class="article-title">
-                    <p>On Jan 17, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>1 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>144 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>74</a></p>
-                    <a class="title" href="single.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a>
-                </div>
-                <div class="article-text">
-                    <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born.....</p>
-                    <a href="single.html"><img src="images/more.png" alt="" /></a>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+        }
+
     </div>
 
     <div class="sports-top">
         <div class="s-grid-left">
             <div class="cricket">
                 <header>
-                    <h3 class="title-head">Cricket</h3>
+                    <h3 class="title-head">Thể thao quốc tế</h3>
                 </header>
                 <div class="c-sports-main">
                     <div class="c-image">
@@ -290,90 +119,53 @@
         <div class="s-grid-right">
             <div class="cricket">
                 <header>
-                    <h3 class="title-head">football</h3>
+                    <h3 class="title-head">Bóng đá</h3>
                 </header>
-                <div class="c-sports-main">
-                    <div class="c-image">
-                        <a href="single.html"><img src="images/fcrt1.jpg" alt="" /></a>
+                @foreach (var item in listBongDa)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle;
+                    <div class="s-grid-small">
+                        <div class="sc-image">
+                            <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
+                        </div>
+                        <div class="sc-text">
+                            <h6>Bóng đá</h6>
+                            <a class="power" href="@url">@item.Title</a>
+                            <p class="date">@item.CreatedDate</p>
+                            <a class="reu" href="@url"><img src="~/uploads_admin/more.png" /></a>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="c-text">
-                        <h6>football</h6>
-                        <a class="power" href="single.html">Power Reigns Supreme at 11th Cricket World Cup</a>
-                        <p class="date">On May 18, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/fcrt2.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>football</h6>
-                        <a class="power" href="single.html">international football Council out of World Cup</a>
-                        <p class="date">On May 01, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/fcrt3.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>football</h6>
-                        <a class="power" href="single.html">international football Council out of World Cup</a>
-                        <p class="date">On Feb 10, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+                }
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
+    <div class="clearfix"></div>
     <div class="sports-top">
         <div class="s-grid-left">
             <div class="cricket">
                 <header>
-                    <h3 class="title-head">tennis</h3>
+                    <h3 class="title-head">Moto GP</h3>
                 </header>
-                <div class="c-sports-main">
-                    <div class="c-image">
-                        <a href="single.html"><img src="images/tcrt1.jpg" alt="" /></a>
-                    </div>
-                    <div class="c-text">
-                        <h6>tennis</h6>
-                        <a class="power" href="single.html">Power Reigns Supreme at 11th Cricket World Cup</a>
-                        <p class="date">On May 11, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+                @foreach (var item in listMotoGp)
+                {
+                     var url = "/chi-tiet/" + item.MetaTitle;
                 <div class="s-grid-small">
                     <div class="sc-image">
-                        <a href="single.html"><img src="images/tcrt2.jpg" alt="" /></a>
+                        <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
                     </div>
                     <div class="sc-text">
-                        <h6>tennis</h6>
-                        <a class="power" href="single.html">World Cup Final After Trophy Snub</a>
-                        <p class="date">On Feb 05, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
+                        <h6>@item.CategoryPost</h6>
+                        <a class="power" href="@url">@item.Title</a>
+                        <p class="date">@item.CreatedDate</p>
+                        <a class="reu" href="@url"><img src="~/uploads_admin/more.png" /></a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/tcrt3.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>tennis</h6>
-                        <a class="power" href="single.html">international Tennis Council President Walks out of World Cup</a>
-                        <p class="date">On Jan 18, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+
+                }
+
             </div>
         </div>
         <div class="s-grid-right">
@@ -421,6 +213,56 @@
         </div>
         <div class="clearfix"></div>
     </div>
+
+
+    <div class="photos">
+        <header>
+            <h3 class="title-head">Photos</h3>
+        </header>
+        <div class="course_demo1">
+            <ul id="flexiselDemo">
+                @foreach (var item in listImage)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle;
+                    <li>
+                        <a href="@url"><img src="@item.HinhAnh" alt="@item.Note" /></a>
+                    </li>
+                }
+
+
+            </ul>
+        </div>
+        <link href="~/clients/css/flexslider.css" rel="stylesheet" media="screen" />
+        <script type="text/javascript">
+            $(window).load(function () {
+                $("#flexiselDemo").flexisel({
+                    visibleItems: 4,
+                    animationSpeed: 1000,
+                    autoPlay: true,
+                    autoPlaySpeed: 3000,
+                    pauseOnHover: true,
+                    enableResponsiveBreakpoints: true,
+                    responsiveBreakpoints: {
+                        portrait: {
+                            changePoint: 480,
+                            visibleItems: 2
+                        },
+                        landscape: {
+                            changePoint: 640,
+                            visibleItems: 2
+                        },
+                        tablet: {
+                            changePoint: 768,
+                            visibleItems: 3
+                        }
+                    }
+                });
+
+            });
+        </script>
+        <script src="~/clients/js/jquery.flexisel.js"></script>
+    </div>
+
 </div>
 <div class="col-md-4 side-bar">
     <div class="first_half">

@@ -52,6 +52,11 @@ namespace ProjectTest.Controllers
         }
         public IActionResult TestView()
         {
+            ViewBag.HotPosts = context.Posts.Where(x => x.Status == true).OrderByDescending(x => x.CreatedDate).Take(3).ToList();
+            ViewBag.ListPost = context.Posts.Where(x => x.Status == true).Take(3).ToList();
+            ViewBag.ListImage = context.Posts.Where(x => x.Status == true).ToList();
+            ViewBag.ListBongDa = context.Posts.Where(x => x.Status == true && x.CategoryId == 6).Take(3).ToList();
+            ViewBag.MotoGP = context.Posts.Where(x => x.Status == true && x.CategoryId == 5).Take(3).ToList();
             return View();
         }
     }

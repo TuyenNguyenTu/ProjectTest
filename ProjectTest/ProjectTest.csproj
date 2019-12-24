@@ -21,7 +21,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="wwwroot\admin\plugins\" />
     <Folder Include="wwwroot\DataImage\" />
-    <Folder Include="wwwroot\uploads_admin\" />
   </ItemGroup>
 
   <ItemGroup>

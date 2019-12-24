@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Menu>
+
+
+<ul>
+    @foreach (var item in Model)
+    {
+        var _target = "";
+        if (item.Text == "Home")
+        {
+            _target = "_blank";
+        }
+        else
+        {
+            _target = "_self";
+        }
+        <li><a asp-controller="@item.Text" asp-action="Index" target="@_target">@item.Text</a></li>
+    }
+</ul>
