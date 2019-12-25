@@ -5,72 +5,78 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Edit</h2>
 
-<h4>AboutMe</h4>
+
+
+@section jsFooter{
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('txtEditContentPost', {
+                customConfig: '/ckeditor/config.js',
+            });
+            $('.custom-file-input').on('change', function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+                console.log(fileName)
+            });
+        });
+    </script>
+}
 <hr />
-<main class="mdl-layout__content ui-form-components">
-    <div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
-        <div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--7-col-tablet mdl-cell--4-col-phone">
-            <div class="mdl-card__title">
-                <h5 class="mdl-card__title-text text-color--white">Chỉnh sửa tài khoản</h5>
+<h2 style="color:white">Thông tin</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger" style="color:white"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="mdl-textfield mdl-js-textfield full-size">
+                <label asp-for="FirstName" class="mdl-textfield__label"></label>
+                <input asp-for="FirstName" class="mdl-textfield__input" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
-            <div class="mdl-card__supporting-text">
-                <form asp-action="Edit" class="form form--basic">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
-                    <div class="mdl-textfield mdl-js-textfield full-size">
-                        <label asp-for="FirstName" class="mdl-textfield__label"></label>
-                        <input asp-for="FirstName" class="mdl-textfield__input" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield full-size">
-                        <label asp-for="LastName" class="mdl-textfield__label"></label>
-                        <input asp-for="LastName" class="mdl-textfield__input" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield full-size">
-                        <label asp-for="Title" class="mdl-textfield__label"></label>
-                        <input asp-for="Title" class="mdl-textfield__input" />
-                        <span asp-validation-for="Title" class="text-danger"></span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield full-size">
-                        <label asp-for="Introduce" class="mdl-textfield__label"></label>
-                        <input asp-for="Introduce" class="mdl-textfield__input" />
-                        <span asp-validation-for="Introduce" class="text-danger"></span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield full-size">
-                        <label asp-for="Image" class="mdl-textfield__label"></label>
-                        <input asp-for="Image" class="mdl-textfield__input" />
-                        <span asp-validation-for="Image" class="text-danger"></span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield full-size">
-                        <label asp-for="CreatedBy" class="mdl-textfield__label"></label>
-                        <input asp-for="CreatedBy" class="mdl-textfield__input" />
-                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield full-size">
-                        <div class="checkbox">
-                            <label>
-                                <input asp-for="Status" />    Hiển thị
-                            </label>
-                        </div>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield full-size">
-                        <label asp-for="Note" class="mdl-textfield__label"></label>
-                        <textarea asp-for="Note" class="mdl-textfield__input" ></textarea>
-                        <span asp-validation-for="Note" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-light-blue" />
-                    </div>
-                </form>
+            <div class="mdl-textfield mdl-js-textfield full-size">
+                <label asp-for="LastName" class="mdl-textfield__label"></label>
+                <input asp-for="LastName" class="mdl-textfield__input" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-        </div>
-    </div>
-</main>
+            <div class="mdl-textfield mdl-js-textfield full-size">
+                <label asp-for="Title" class="mdl-textfield__label"></label>
+                <input asp-for="Title" class="mdl-textfield__input" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
 
-<div>
-    <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+                Nội dung bài viết:
+                <textarea class="txtAreaIntro" asp-for="Introduce" id="txtEditContentPost"></textarea>
+
+                <span asp-validation-for="Introduce" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Status" /> Hiển thị
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label" style="color:white"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger" style="color:white"></span>
+                </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-light-blue" />
+            </div>
+        </form>
+        <a asp-action="Index" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-orange">Back to List</a>
+    </div>
 </div>
+
+
+
+
+
+
+
+
 

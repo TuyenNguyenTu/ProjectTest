@@ -41,7 +41,8 @@ namespace ProjectTest
             });
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             //add các dịch vụ liên quan
-            services.AddAuthentication(options=>{
+            services.AddAuthentication(options =>
+            {
                 options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -53,15 +54,16 @@ namespace ProjectTest
                 }).AddCookie();
 
             //add dbcontext co connection string 
-            services.AddDbContext<MyBlogDbContext>(options=> {
+            services.AddDbContext<MyBlogDbContext>(options =>
+            {
                 options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
             });
 
             //add scope: kết dính với nhau, đại loại thế
             services.AddScoped<ICategoryPostRepository, CategoryPostRepository>();
-            
-           
-            
+
+
+
             // add dich vu MVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -95,9 +97,14 @@ namespace ProjectTest
                 name: "areas",
                 template: "{area:exists}/{controller=Login}/{action=Index}/{id?}"
               );
+                routes.MapRoute("Contact","{Contact}",new { Controller= "Contact",Action="Index" });
+                    //name: "/lien-he",
+                    //template: "{controller=Contact}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=testview}/{id?}");
+
+
             });
         }
     }

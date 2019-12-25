@@ -14,5 +14,7 @@
             _target = "_self";
         }
         <li><a asp-controller="@item.Text" asp-action="Index" target="@_target">@item.Text</a></li>
+
     }
+    <li><a asp-controller="Post" asp-action="Index" target="_self">Post</a></li>
 </ul>

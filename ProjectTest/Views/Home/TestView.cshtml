@@ -6,6 +6,9 @@
     var listImage = (IEnumerable<Post>)ViewBag.ListImage;
     var listBongDa = (IEnumerable<Post>)ViewBag.ListBongDa;
     var listMotoGp = (IEnumerable<Post>)ViewBag.MotoGP;
+    var listTTQT = (IEnumerable<Post>)ViewBag.TheThaoQT;
+    var tinLienQuan = (IEnumerable<Post>)ViewBag.TinLienQuan;
+    var slide = (IEnumerable<Slide>)ViewBag.Slide;
 }
 
 
@@ -15,24 +18,17 @@
     <div class="slider">
         <div class="callbacks_wrap">
             <ul class="rslides" id="slider">
+               @foreach (var item in slide)
+               {
+
                 <li>
-                    <img src="~/image_slide/704a07a2-7212-4cf3-94d1-64a4759fb3bb_Ronaldo.png" />
+                    <img src="@item.Image" />
                     <div class="caption">
-                        <a href="single.html">Lorem Ipsum is simply dummy text of the printing and typesetting industry</a>
+                        <a href="#">@item.Description</a>
                     </div>
                 </li>
-                <li>
-                    <img src="~/image_slide/29146fae-a6e4-4c54-a916-ccbc8dcd45e0_SML.png" />
-                    <div class="caption">
-                        <a href="single.html">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="~/image_slide/db081816-12e2-4cc2-a3f0-afd2c5d95bda_GP_1.png" />
-                    <div class="caption">
-                        <a href="single.html">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</a>
-                    </div>
-                </li>
+               }
+
             </ul>
             <a href="#" class="callbacks_nav callbacks1_nav prev"> Previous</a>
             <a href="#" class="callbacks_nav callbacks1_nav next"> Next</a>
@@ -78,42 +74,24 @@
                 <header>
                     <h3 class="title-head">Thể thao quốc tế</h3>
                 </header>
-                <div class="c-sports-main">
-                    <div class="c-image">
-                        <a href="single.html"><img src="images/crt1.jpg" alt="" /></a>
+                @foreach (var item in listTTQT)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle;
+                    <div class="s-grid-small">
+                        <div class="sc-image">
+                            <a href="@url"><img src="@item.HinhAnh" alt="@item.Note" /></a>
+                        </div>
+                        <div class="sc-text">
+                            <h6>cricket</h6>
+                            <a class="power" href="@url">@item.Title</a>
+                            <p class="date">@item.CreatedDate</p>
+                            <a class="reu" href="@url"><img src="~/uploads_admin/more.png" alt="" /></a>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="c-text">
-                        <h6>cricket</h6>
-                        <a class="power" href="single.html">Power Reigns Supreme at 11th Cricket World Cup</a>
-                        <p class="date">On Jun 25, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/crt2.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>cricket</h6>
-                        <a class="power" href="single.html">international Cricket Council President Walks out</a>
-                        <p class="date">On Apr 11, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/crt3.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>cricket</h6>
-                        <a class="power" href="single.html">international Cricket World Cup Final After Trophy Snub</a>
-                        <p class="date">On Apr 05, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+
+                }
+
             </div>
         </div>
         <div class="s-grid-right">
@@ -150,19 +128,19 @@
                 </header>
                 @foreach (var item in listMotoGp)
                 {
-                     var url = "/chi-tiet/" + item.MetaTitle;
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
+                    var url = "/chi-tiet/" + item.MetaTitle;
+                    <div class="s-grid-small">
+                        <div class="sc-image">
+                            <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
+                        </div>
+                        <div class="sc-text">
+                            <h6>@item.CategoryPost</h6>
+                            <a class="power" href="@url">@item.Title</a>
+                            <p class="date">@item.CreatedDate</p>
+                            <a class="reu" href="@url"><img src="~/uploads_admin/more.png" /></a>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="sc-text">
-                        <h6>@item.CategoryPost</h6>
-                        <a class="power" href="@url">@item.Title</a>
-                        <p class="date">@item.CreatedDate</p>
-                        <a class="reu" href="@url"><img src="~/uploads_admin/more.png" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
 
                 }
 
@@ -171,44 +149,25 @@
         <div class="s-grid-right">
             <div class="cricket">
                 <header>
-                    <h3 class="title-head">formula1</h3>
+                    <h3 class="title-head">Tin tức liên quan</h3>
                 </header>
-                <div class="c-sports-main">
-                    <div class="c-image">
-                        <a href="single.html"><img src="images/pcrt1.jpg" alt="" /></a>
+                @foreach (var item in tinLienQuan)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle;
+                    <div class="s-grid-small">
+                        <div class="sc-image">
+                            <a href="@url"><img src="@item.HinhAnh" alt="@item.Note" /></a>
+                        </div>
+                        <div class="sc-text">
+                            <h6>@item.CategoryPost</h6>
+                            <a class="power" href="@url">@item.Title</a>
+                            <p class="date">@item.CreatedDate</p>
+                            <a class="reu" href="@url"><img src="~/uploads_admin/more.png" /></a>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="c-text">
-                        <h6>lorem</h6>
-                        <a class="power" href="single.html">Power Reigns Supreme at 11th Cricket World Cup</a>
-                        <p class="date">On Jan 14, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/pcrt2.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>lorem</h6>
-                        <a class="power" href="single.html">international Cricket Council President</a>
-                        <p class="date">On May 01, 2015</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="s-grid-small">
-                    <div class="sc-image">
-                        <a href="single.html"><img src="images/pcrt3.jpg" alt="" /></a>
-                    </div>
-                    <div class="sc-text">
-                        <h6>lorem</h6>
-                        <a class="power" href="single.html">international Walks out of World Cup Final After Trophy Snub</a>
-                        <p class="date">On Dec 11, 2014</p>
-                        <a class="reu" href="single.html"><img src="images/more.png" alt="" /></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+                }
+
             </div>
         </div>
         <div class="clearfix"></div>
@@ -282,46 +241,21 @@
                         <div class="scrollbar" id="style-2">
                             <div class="force-overflow">
                                 <div class="popular-post-grids">
+                                    @foreach (var item in hotPosts)
+                                    {
+                                    var url = "/chi-tiet/" + item.MetaTitle;
                                     <div class="popular-post-grid">
                                         <div class="post-img">
-                                            <a href="single.html"><img src="images/bus2.jpg" alt="" /></a>
+                                            <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
                                         </div>
                                         <div class="post-text">
-                                            <a class="pp-title" href="single.html"> The section of the mass media industry</a>
-                                            <p>On Feb 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>3 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
+                                            <a class="pp-title" href="single.html">@item.Title</a>
+                                            <p>@item.CreatedDate <a class="span_link" href="@url"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="@url"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
-                                    <div class="popular-post-grid">
-                                        <div class="post-img">
-                                            <a href="single.html"><img src="images/bus1.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="post-text">
-                                            <a class="pp-title" href="single.html"> Lorem Ipsum is simply dummy text printing</a>
-                                            <p>On Apr 14 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>2 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="popular-post-grid">
-                                        <div class="post-img">
-                                            <a href="single.html"><img src="images/bus3.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="post-text">
-                                            <a class="pp-title" href="single.html">There are many variations of Lorem</a>
-                                            <p>On Jun 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="popular-post-grid">
-                                        <div class="post-img">
-                                            <a href="single.html"><img src="images/bus4.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="post-text">
-                                            <a class="pp-title" href="single.html">Sed ut perspiciatis unde omnis iste natus</a>
-                                            <p>On Jan 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>1 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -556,7 +490,7 @@
                 <a class="tag20" href="single.html">holds in these</a>
             </p>
         </div>
-        <div class="popular-news">
+        @*<div class="popular-news">
             <header>
                 <h3 class="title-popular">popular News</h3>
             </header>
@@ -582,7 +516,7 @@
                     <p>On Mar 14, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <div class="clearfix"></div>
 </div>

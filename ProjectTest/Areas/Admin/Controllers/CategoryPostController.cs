@@ -29,14 +29,14 @@ namespace ProjectTest.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 var query = _context.CategoryPosts.Where(x => x.CategoryName.Contains(searchString)).AsNoTracking().OrderBy(x => x.CreatedDate);
-                var model = await PagingList.CreateAsync(query, 2, page);
+                var model = await PagingList.CreateAsync(query, 6, page);
                 ViewBag.SearchString = searchString;
                 return View(model);
             }
             else
             {
                 var query = _context.CategoryPosts.AsNoTracking().OrderBy(x => x.CreatedDate);
-                var model = await PagingList.CreateAsync(query, 2, page);
+                var model = await PagingList.CreateAsync(query, 6, page);
                 return View(model);
             }
         }

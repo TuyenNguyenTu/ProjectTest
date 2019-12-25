@@ -114,7 +114,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Title,Introduce,Image,Status,Note")] AboutMe aboutMe)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Title,Introduce,Status,Note")] AboutMe aboutMe)
         {
             if (ModelState.IsValid)
             {
@@ -149,7 +149,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,FirstName,LastName,Title,Introduce,Image,CreatedBy,Status,Note")] AboutMe aboutMe)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,FirstName,LastName,Title,Introduce,CreatedBy,Status,Note")] AboutMe aboutMe)
         {
             if (id != aboutMe.Id)
             {
@@ -160,9 +160,15 @@ namespace ProjectTest.Areas.Admin.Controllers
             {
                 try
                 {
-                    aboutMe.MetaTitle = XuLyChuoi.GetMetaTitle(aboutMe.Title);
-                    aboutMe.ModifiedDate = DateTime.Now;
-                    _context.Update(aboutMe);
+                    AboutMe about = _context.AboutMes.Find(id);
+                    about.FirstName = aboutMe.FirstName;
+                    about.MetaTitle = XuLyChuoi.GetMetaTitle(aboutMe.Title);
+                    about.Title = aboutMe.Title;
+                    about.Introduce = aboutMe.Introduce;
+                    about.Status = aboutMe.Status;
+                    about.LastName = aboutMe.LastName;
+                    about.ModifiedDate = DateTime.Now;
+                    _context.Update(about);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
