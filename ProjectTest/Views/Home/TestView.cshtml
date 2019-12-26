@@ -18,16 +18,16 @@
     <div class="slider">
         <div class="callbacks_wrap">
             <ul class="rslides" id="slider">
-               @foreach (var item in slide)
-               {
+                @foreach (var item in slide)
+                {
 
-                <li>
-                    <img src="@item.Image" />
-                    <div class="caption">
-                        <a href="#">@item.Description</a>
-                    </div>
-                </li>
-               }
+                    <li>
+                        <img src="@item.Image" />
+                        <div class="caption">
+                            <a href="#">@item.Description</a>
+                        </div>
+                    </li>
+                }
 
             </ul>
             <a href="#" class="callbacks_nav callbacks1_nav prev"> Previous</a>
@@ -44,7 +44,7 @@
         </header>
         @foreach (var item in hotPosts)
         {
-            var url = "/chi-tiet/" + item.MetaTitle;
+            var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim() + '-' + item.Id;
             <div class="article">
                 <div class="article-left">
                     <a href="@url"><img src="@item.HinhAnh" alt="@item.Note"></a>
@@ -76,7 +76,7 @@
                 </header>
                 @foreach (var item in listTTQT)
                 {
-                    var url = "/chi-tiet/" + item.MetaTitle;
+                    var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim() + '-' + item.Id;
                     <div class="s-grid-small">
                         <div class="sc-image">
                             <a href="@url"><img src="@item.HinhAnh" alt="@item.Note" /></a>
@@ -101,7 +101,7 @@
                 </header>
                 @foreach (var item in listBongDa)
                 {
-                    var url = "/chi-tiet/" + item.MetaTitle;
+                    var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim() + '-' + item.Id;
                     <div class="s-grid-small">
                         <div class="sc-image">
                             <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
@@ -128,7 +128,7 @@
                 </header>
                 @foreach (var item in listMotoGp)
                 {
-                    var url = "/chi-tiet/" + item.MetaTitle;
+                    var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim() + '-' + item.Id;
                     <div class="s-grid-small">
                         <div class="sc-image">
                             <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
@@ -153,7 +153,7 @@
                 </header>
                 @foreach (var item in tinLienQuan)
                 {
-                    var url = "/chi-tiet/" + item.MetaTitle;
+                    var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim() + '-' + item.Id;
                     <div class="s-grid-small">
                         <div class="sc-image">
                             <a href="@url"><img src="@item.HinhAnh" alt="@item.Note" /></a>
@@ -182,7 +182,7 @@
             <ul id="flexiselDemo">
                 @foreach (var item in listImage)
                 {
-                    var url = "/chi-tiet/" + item.MetaTitle;
+                    var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim() + '-' + item.Id;
                     <li>
                         <a href="@url"><img src="@item.HinhAnh" alt="@item.Note" /></a>
                     </li>
@@ -243,17 +243,17 @@
                                 <div class="popular-post-grids">
                                     @foreach (var item in hotPosts)
                                     {
-                                    var url = "/chi-tiet/" + item.MetaTitle;
-                                    <div class="popular-post-grid">
-                                        <div class="post-img">
-                                            <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
+                                        var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim() + '-' + item.Id;
+                                        <div class="popular-post-grid">
+                                            <div class="post-img">
+                                                <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
+                                            </div>
+                                            <div class="post-text">
+                                                <a class="pp-title" href="single.html">@item.Title</a>
+                                                <p>@item.CreatedDate <a class="span_link" href="@url"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="@url"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
+                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
-                                        <div class="post-text">
-                                            <a class="pp-title" href="single.html">@item.Title</a>
-                                            <p>@item.CreatedDate <a class="span_link" href="@url"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="@url"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
                                     }
 
                                 </div>
@@ -268,46 +268,22 @@
                         <div class="scrollbar" id="style-2">
                             <div class="force-overflow">
                                 <div class="popular-post-grids">
-                                    <div class="popular-post-grid">
-                                        <div class="post-img">
-                                            <a href="single.html"><img src="images/tec2.jpg" alt="" /></a>
+                                    @foreach (var item in hotPosts)
+                                    {
+                                        var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim() + '-' + item.Id;
+                                        <div class="popular-post-grid">
+                                            <div class="post-img">
+                                                <a href="@url"><img src="@item.HinhAnh" alt="" /></a>
+                                            </div>
+                                            <div class="post-text">
+                                                <a class="pp-title" href="@url">@item.Title</a>
+                                                <p>@item.CreatedDate <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>3 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
+                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
-                                        <div class="post-text">
-                                            <a class="pp-title" href="single.html"> The section of the mass media industry</a>
-                                            <p>On Feb 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>3 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="popular-post-grid">
-                                        <div class="post-img">
-                                            <a href="single.html"><img src="images/tec1.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="post-text">
-                                            <a class="pp-title" href="single.html"> Lorem Ipsum is simply dummy text printing</a>
-                                            <p>On Apr 14 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>2 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="popular-post-grid">
-                                        <div class="post-img">
-                                            <a href="single.html"><img src="images/tec3.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="post-text">
-                                            <a class="pp-title" href="single.html">There are many variations of Lorem</a>
-                                            <p>On Jun 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="popular-post-grid">
-                                        <div class="post-img">
-                                            <a href="single.html"><img src="images/tec4.jpg" alt="" /></a>
-                                        </div>
-                                        <div class="post-text">
-                                            <a class="pp-title" href="single.html">Sed ut perspiciatis unde omnis iste natus</a>
-                                            <p>On Jan 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>1 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>56 </a></p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
+
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -491,32 +467,32 @@
             </p>
         </div>
         @*<div class="popular-news">
-            <header>
-                <h3 class="title-popular">popular News</h3>
-            </header>
-            <div class="popular-grids">
-                <div class="popular-grid">
-                    <a href="single.html"><img src="images/popular-4.jpg" alt="" /></a>
-                    <a class="title" href="single.html">It is a long established fact that a reader will be distracted</a>
-                    <p>On Aug 31, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
+                <header>
+                    <h3 class="title-popular">popular News</h3>
+                </header>
+                <div class="popular-grids">
+                    <div class="popular-grid">
+                        <a href="single.html"><img src="images/popular-4.jpg" alt="" /></a>
+                        <a class="title" href="single.html">It is a long established fact that a reader will be distracted</a>
+                        <p>On Aug 31, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
+                    </div>
+                    <div class="popular-grid">
+                        <a href="single.html"><img src="images/popular-1.jpg" alt="" /></a>
+                        <a class="title" href="single.html">It is a long established fact that a reader will be distracted</a>
+                        <p>On Mar 14, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
+                    </div>
+                    <div class="popular-grid">
+                        <iframe width="100%" src="https://www.youtube.com/embed/LGMn_yi_62k" frameborder="0" allowfullscreen></iframe>
+                        <a class="title" href="single.html">Aishwarya Rai Bachchan's Latest SHOCKING News For Ex Salman Khan</a>
+                        <p>On Mar 14, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
+                    </div>
+                    <div class="popular-grid">
+                        <a href="single.html"><img src="images/popular-3.jpg" alt="" /></a>
+                        <a class="title" href="single.html">It is a long established fact that a reader will be distracted</a>
+                        <p>On Mar 14, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
+                    </div>
                 </div>
-                <div class="popular-grid">
-                    <a href="single.html"><img src="images/popular-1.jpg" alt="" /></a>
-                    <a class="title" href="single.html">It is a long established fact that a reader will be distracted</a>
-                    <p>On Mar 14, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
-                </div>
-                <div class="popular-grid">
-                    <iframe width="100%" src="https://www.youtube.com/embed/LGMn_yi_62k" frameborder="0" allowfullscreen></iframe>
-                    <a class="title" href="single.html">Aishwarya Rai Bachchan's Latest SHOCKING News For Ex Salman Khan</a>
-                    <p>On Mar 14, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
-                </div>
-                <div class="popular-grid">
-                    <a href="single.html"><img src="images/popular-3.jpg" alt="" /></a>
-                    <a class="title" href="single.html">It is a long established fact that a reader will be distracted</a>
-                    <p>On Mar 14, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>250 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>68</a></p>
-                </div>
-            </div>
-        </div>*@
+            </div>*@
     </div>
     <div class="clearfix"></div>
 </div>

@@ -1,8 +1,53 @@
-﻿
+﻿@model ReflectionIT.Mvc.Paging.IPagingList<ProjectTest.Models.Post>
+@using ReflectionIT.Mvc.Paging
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 
-<h2>Index</h2>
 
+    <div class="col-md-8 content-left">
+
+        <div class="articles sports">
+            <header>
+                <h3 class="title-head">Bài viết</h3>
+            </header>
+            <center>
+                <nav aria-label="navigation posts">
+                    @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+                </nav>
+            </center>
+            @foreach (var item in Model)
+            {
+                var url = "/chi-tiet-bai-viet/" + item.MetaTitle.Trim()+'-'+item.Id;
+                <div class="article">
+                    <div class="article-left">
+                        <a href="@url"><img src="@item.HinhAnh"></a>
+                    </div>
+                    <div class="article-right">
+                        <div class="article-title">
+                            <p>@item.CreatedDate <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>104 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>52</a></p>
+                            <a class="title" href="@url">@item.Title</a>
+                        </div>
+                        <div class="article-text">
+                            <p>@item.MetaDescription .....</p>
+                            <a href="@url">
+                                <img src="~/uploads_admin/more.png" />
+                            </a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            }
+
+        </div>
+        <center>
+            <nav aria-label="navigation posts">
+                @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+            </nav>
+        </center>
+
+    </div>
+<div class="clearfix"></div>

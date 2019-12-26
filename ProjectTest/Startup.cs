@@ -97,9 +97,6 @@ namespace ProjectTest
                 name: "areas",
                 template: "{area:exists}/{controller=Login}/{action=Index}/{id?}"
               );
-                routes.MapRoute("Contact","{Contact}",new { Controller= "Contact",Action="Index" });
-                    //name: "/lien-he",
-                    //template: "{controller=Contact}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=testview}/{id?}");
