@@ -6,7 +6,8 @@
 
         @foreach (var item in Model)
         {
-            <li class="active"><a href="/baiviet/@item.MetaTitle-@item.Id" target="_blank">@item.CategoryName</a></li>
+            var url = "/loai-baiviet/" + item.MetaTitle.Trim() + "-" + item.Id;
+            <li class="active"><a href="@url" target="_self">@item.CategoryName</a></li>
         }
 
     </ul>

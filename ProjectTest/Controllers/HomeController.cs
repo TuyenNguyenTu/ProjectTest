@@ -8,7 +8,7 @@ using ProjectTest.Models;
 
 namespace ProjectTest.Controllers
 {
-    [Route("Home")]
+
     public class HomeController : Controller
     {
         private readonly MyBlogDbContext context;
@@ -16,9 +16,7 @@ namespace ProjectTest.Controllers
         {
             context = _context;
         }
-        [Route("index")]
-        [Route("")]
-        [Route("~/")]
+
         public IActionResult Index()
         {
             ViewBag.HotPosts = context.Posts.Where(x => x.Status == true).OrderByDescending(x => x.CreatedDate).Take(3).ToList();
