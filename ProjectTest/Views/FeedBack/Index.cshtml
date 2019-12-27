@@ -3,6 +3,35 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
+<ol class="breadcrumb">
+    <li><a href="index.html">Home</a></li>
+    <li class="active">Contact Us</li>
+</ol>
 
-<h2>Index</h2>
+<!--contact-section-starts-->
+<div class="contact-section">
+    <div class="contact_grid">
+        <div class="col-md-12 contact-top">
+            <h3>Đóng góp ý kiến</h3>
+            <p class="contact_msg">Phản hồi thông tin ý kiến của bạn</p>
+            <form asp-action="Create">
+                <div class="to">
+                    <input type="text" class="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+                    <input type="text" class="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" style="margin-left:20px">
+                    <input type="text" class="text" value="Subject" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Subject';}" style="margin-left:20px">
+                </div>
+                <div class="text">
+                    <textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message:</textarea>
+                </div>
+                <div class="clearfix"> </div>
+                <div class="form-submit1">
+                    <input name="submit" type="submit" id="submit" value="Send FeedBack"><br>
+                    <p class="m_msg">Sự quan tâm của bạn là niềm vui của chúng tôi</p>
+                </div>
+                <div class="clearfix"> </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
 
