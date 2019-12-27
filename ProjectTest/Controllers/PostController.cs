@@ -16,17 +16,26 @@ namespace ProjectTest.Controllers
         {
             _context = context;
         }
+        [Route("/bai-viet")]
         public async Task<IActionResult> Index(int page = 1)
         {
             var query = _context.Posts.Where(x => x.Status == true).AsNoTracking().OrderByDescending(x => x.CreatedDate);
             var model = await PagingList.CreateAsync(query, 5, page); 
             return View(model);
         }
+        [HttpGet]
         [Route("chi-tiet-bai-viet/{slug}-{id:long}")]
         public ViewResult ViewPost(long id)
         {
+            int setViewCount = 1;
             var result = _context.Posts.Find(id);
-            return View(result);
+            result.ViewCount += setViewCount;
+            _context.SaveChanges();
+            var result1 = _context.Posts.Find(id);
+            ViewBag.ViewCount = result1.ViewCount;
+            return View(result1);
         }
+
+
     }
 }

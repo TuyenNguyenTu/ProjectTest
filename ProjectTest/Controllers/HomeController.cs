@@ -8,7 +8,7 @@ using ProjectTest.Models;
 
 namespace ProjectTest.Controllers
 {
-
+    [Route("Home")]
     public class HomeController : Controller
     {
         private readonly MyBlogDbContext context;
@@ -16,41 +16,10 @@ namespace ProjectTest.Controllers
         {
             context = _context;
         }
+        [Route("index")]
+        [Route("")]
+        [Route("~/")]
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult MainMenu()
-        {
-            ViewBag.Hello = "Hello";
-            return View();
-        }
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-        public IActionResult TestView()
         {
             ViewBag.HotPosts = context.Posts.Where(x => x.Status == true).OrderByDescending(x => x.CreatedDate).Take(3).ToList();
             ViewBag.ListPost = context.Posts.Where(x => x.Status == true).Take(3).ToList();
@@ -59,8 +28,9 @@ namespace ProjectTest.Controllers
             ViewBag.MotoGP = context.Posts.Where(x => x.Status == true && x.CategoryId == 5).Take(3).ToList();
             ViewBag.TheThaoQT = context.Posts.Where(x => x.Status == true && x.CategoryId == 7).Take(3).ToList();
             ViewBag.TinLienQuan = context.Posts.Where(x => x.Status == true && x.CategoryId == 4).Take(3).ToList();
-            ViewBag.Slide = context.Slides.Where(x => x.Status == true).Take(3).OrderByDescending(x=>x.CreatedDate).ToList();
+            ViewBag.Slide = context.Slides.Where(x => x.Status == true).Take(3).OrderByDescending(x => x.CreatedDate).ToList();
             return View();
         }
+
     }
 }
