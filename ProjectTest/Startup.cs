@@ -99,9 +99,7 @@ namespace ProjectTest
               );
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=testview}/{id?}");
-
-
+                    template: "{controller=Home}/{action=index}/{id?}");
             });
         }
     }

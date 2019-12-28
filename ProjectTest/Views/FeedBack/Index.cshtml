@@ -4,10 +4,10 @@
     Layout = "~/Views/Shared/_LayoutClient.cshtml";
 }
 <ol class="breadcrumb">
-    <li><a href="index.html">Home</a></li>
+    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
     <li class="active">Contact Us</li>
 </ol>
-
+<h2>@ViewBag.Success</h2>
 <!--contact-section-starts-->
 <div class="contact-section">
     <div class="contact_grid">
