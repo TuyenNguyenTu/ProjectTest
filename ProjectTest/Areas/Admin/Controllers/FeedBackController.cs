@@ -23,19 +23,20 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/FeedBack
+        [Route("/danh-sach-phan-hoi")]
         public async Task<IActionResult> Index(string searchString, int page = 1)
         {
             if (!string.IsNullOrEmpty(searchString))
             {
                 var query = _context.FeedBacks.Where(x => x.Name.Contains(searchString) || x.Contents.Contains(searchString)).AsNoTracking().OrderBy(x => x.CreatedDate);
-                var model = await PagingList.CreateAsync(query, 2, page);
+                var model = await PagingList.CreateAsync(query, 5, page);
                 ViewBag.searchString = searchString;
                 return View(model);
             }
             else
             {
                 var query = _context.FeedBacks.AsNoTracking().OrderBy(x => x.CreatedDate);
-                var model = await PagingList.CreateAsync(query, 2, page);
+                var model = await PagingList.CreateAsync(query,5 , page);
                 return View(model);
             }
         }

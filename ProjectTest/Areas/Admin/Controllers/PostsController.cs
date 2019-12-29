@@ -28,6 +28,7 @@ namespace ProjectTest.Areas.Admin.Controllers
         }
 
         // GET: Admin/Posts
+        [Route("/danh-sach-bai-viet")]
         public async Task<IActionResult> Index(string searchString, int page = 1)
         {
 
