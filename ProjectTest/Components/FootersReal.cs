@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTest.Components
 {
-    public class FootersReal: ViewComponent
+    public class FootersReal : ViewComponent
     {
         private readonly MyBlogDbContext context;
         public FootersReal(MyBlogDbContext _context)
