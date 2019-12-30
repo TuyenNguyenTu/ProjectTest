@@ -52,6 +52,7 @@ namespace ProjectTest.Controllers
                     client.Disconnect(true);
                 }
             }
+            ViewBag.xinchao = "Success";
             return View();
         }
     }
