@@ -33,6 +33,7 @@ namespace ProjectTest.Controllers
             _context.SaveChanges();
             var result1 = _context.Posts.Find(id);
             ViewBag.ViewCount = result1.ViewCount;
+            ViewBag.LikePost = _context.Posts.Where(x => x.Status == true).Take(4).OrderByDescending(x => x.ViewCount);
             return View(result1);
         }
 
