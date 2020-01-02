@@ -14,8 +14,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectTest.Models;
 using Microsoft.AspNetCore.Session;
-using ProjectTest.Repository.InterfaceRepository;
-using ProjectTest.Repository.Reposi;
 using ReflectionIT.Mvc.Paging;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -59,8 +57,6 @@ namespace ProjectTest
                 options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
             });
 
-            //add scope: kết dính với nhau, đại loại thế
-            services.AddScoped<ICategoryPostRepository, CategoryPostRepository>();
 
 
 
