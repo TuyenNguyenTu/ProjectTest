@@ -4,6 +4,55 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="~/admin/plugins/LoadChart.js"></script>
+}
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: "application/json",
+            url: '/api/chart/viewchart',
+            success: function (result) {
+                google.charts.load('current', {
+                    packages: ['corechart']
+                });
+                google.charts.setOnLoadCallback(function () {
+                    drawChart(result);
+                });
+            }
+        });
+
+        function drawChart(result) {
+            // Define the chart to be drawn.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'CategoryName');
+            data.addColumn('number', 'ViewCount');
+            var dataArray = [];
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.categoryName, obj.viewCount]);
+            });
+            data.addRows(dataArray);
+
+
+            var barchart_options = {
+                title: "Lượng người xem bài viết",
+                width: 900,
+                height: 700,
+                legend:'none'
+                
+            }
+            var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+            barchart.draw(data, barchart_options);
+
+
+        }
+    });
+</script>
 <h2>Trang quản trị</h2>
 
-<h3>@ViewBag.getSession</h3>
+
+<div id="barchart_div" style="border:1px solid #ccc; height:700px; background-color:white" ></div>
+
