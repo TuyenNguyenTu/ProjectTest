@@ -65,7 +65,9 @@ namespace ProjectTest
 
             services.AddPaging();
             //add dịch vụ session
-            services.AddSession();
+            services.AddSession(options=> {
+                options.Cookie.IsEssential = true;
+            });
 
 
         }
