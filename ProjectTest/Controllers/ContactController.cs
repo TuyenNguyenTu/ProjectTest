@@ -9,11 +9,6 @@ namespace ProjectTest.Controllers
 {
     public class ContactController : Controller
     {
-        private MyBlogDbContext _context;
-        public ContactController(MyBlogDbContext context)
-        {
-            _context = context;
-        }
         [Route("/lien-he")]
         public IActionResult Index()
         {
